@@ -1,10 +1,15 @@
 import React from 'react';
+import Nav from '../components/Nav';
 
 function  AppHomePage(){
     return(
         <>
-            <h1>Hey!!</h1>
+            <Nav/>
+            <h1 className="text-3xl font-bold underline">
+            Hello world!
+            </h1>
         </>
+        
     )
 }
 
