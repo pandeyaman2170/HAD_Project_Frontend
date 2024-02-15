@@ -1,0 +1,9 @@
+.body-image-container {
+    /* background-image: url('../resources/images/home_image.jpg'); */
+    background-size: cover; /* Adjust as needed */
+    background-position: center; /* Adjust as needed */
+    width: 100%; /* Set the width of the container */
+    height: 300px;
+    background-color: aqua;
+    /* Add any additional styling as needed */
+  }
