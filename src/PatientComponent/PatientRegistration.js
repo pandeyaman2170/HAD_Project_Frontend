@@ -49,7 +49,6 @@ const PatientRegistration = () => {
         signInWithPhoneNumber(authentication, phoneNo, appVerifier)
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
-                // console.log("true");
             })
             .catch((error) => {
                 console.log(error);
@@ -62,11 +61,7 @@ const PatientRegistration = () => {
         confirmationResult
             .confirm(otp)
             .then((result) => {
-                // User signed in successfully.
-                // fetchPtData();
                 const userI = result.user;
-                // console.log(result);
-                // console.log("number verified");
                 setValidOTP(true);
                 setSend(false);
                 alert("Number Verified")
@@ -113,7 +108,7 @@ const PatientRegistration = () => {
             <LoginNavbar />
             <div className='flex items-center justify-center h-screen mt-4'>
                 <div className='w-full flex items-center justify-center'>
-                    <form onSubmit={handleSubmit} className='w-4/5 p-8 items-center justify-evenly h-4/5 font-serif border-2 border-gray-200 rounded-lg'>
+                    <form onSubmit={handleSubmit} className='w-4/5 p-8 items-center justify-evenly h-4/5 font-normal border-2 border-gray-200 rounded-lg'>
                         <h1 className='mb-10 text-center text-4xl'>Patient Registration</h1>
                         <div className="grid md:grid-cols-3 md:gap-6 align-center justify-center">
                             <div className="relative z-0 w-full mb-6 group" >

@@ -5,7 +5,6 @@ import "react-phone-number-input/style.css";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { authentication } from "../firebase";
 import axios from "axios";
-import { useTranslation } from "react-i18next";
 
 function Otp(props) {
 
@@ -17,7 +16,7 @@ function Otp(props) {
   const [send, setSend] = useState(false);
   const [validOTP, setValidOTP] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const { t } = useTranslation();
+
   const generateRecaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(
       "recaptcha-container",
@@ -33,16 +32,13 @@ function Otp(props) {
 
   async function sendOTP(e) {
     e.preventDefault();
-    // console.log("isVAlid",isValid);
     if (isValid) {
       setSend(true);
-      // console.log("true")
       generateRecaptcha();
       let appVerifier = window.recaptchaVerifier;
       signInWithPhoneNumber(authentication, phoneNumber, appVerifier)
         .then((confirmationResult) => {
           window.confirmationResult = confirmationResult;
-          // console.log("true");
         })
         .catch((error) => {
           console.log(error);
@@ -51,7 +47,6 @@ function Otp(props) {
     else {
       alert("Invalid Number")
     }
-
   }
 
   const verifyOTP = (e) => {
@@ -60,8 +55,6 @@ function Otp(props) {
     confirmationResult
       .confirm(otp)
       .then((result) => {
-        // User signed in successfully.
-        // fetchPtData();
         const userI = result.user;
         axios.post(`${process.env.REACT_APP_BACKEND_URL}/authenticate`, {
           username: phoneNumber,
@@ -79,16 +72,9 @@ function Otp(props) {
             fetchDrDetail()
             navigate(`/doctor`)
           }
-          // console.log(localStorage.getItem("jwtToken"));
         })).catch((e) => console.log(e))
-
-        // console.log(result);
-        // console.log("number verified");
-
       })
       .catch((error) => {
-        // User couldn't sign in (bad verification code?)
-        // alert("Invalid OTP");
         console.log(error);
       });
   };
@@ -116,9 +102,7 @@ function Otp(props) {
   const fetchPtDetail = async () => {
     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/patient/getPatientByPhoneNumber/${phoneNumber}`)
       .then((response) => {
-        // console.log("phoneNumber", phoneNumber)
         localStorage.setItem("patientDetails", JSON.stringify(response.data))
-        // console.log("Ptresponsedata", response.data)
       })
       .catch((error) => {
         console.log(error)
@@ -129,7 +113,6 @@ function Otp(props) {
     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/doctor/getDoctorByPhoneNumber/${phoneNumber}`)
       .then((response) => {
         localStorage.setItem("doctorDetails", JSON.stringify(response.data));
-        // console.log("Drresponsedata",response.data);
       })
       .catch((error) => {
         console.log(error)
@@ -149,7 +132,7 @@ function Otp(props) {
     <div>
       <form className="max-w-md mx-auto mt-2 p-2">
         <div>
-          <h2 className="text-lg font-serif">{t("Enter Phone Number")}</h2>
+          <h2 className="text-lg">Enter Phone Number</h2>
           <div className="flex flex-row justify-evenly items-center">
             <div className="flex flex-col">
               <PhoneInput
@@ -158,9 +141,6 @@ function Otp(props) {
                 onChange={setPhoneNumber}
                 className="w-60 border border-gray-300 rounded-lg px-4 py-2"
               />
-              {/* {phoneNumber && phoneNumber.length > 0 && !isValid && (
-              <p className="text-red-500">Phone number must have 10 digits.</p>
-            )} */}
             </div>
             <div className="p-2">
               <button
@@ -168,7 +148,7 @@ function Otp(props) {
                 className="w-24 h-10 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                 onClick={sendOTP}
               >
-                {t("Send OTP")}
+                Send OTP
               </button>
             </div>
           </div>
@@ -176,7 +156,7 @@ function Otp(props) {
         {send ? (
           <div>
             <div>
-              <h2 className="text-lg font-serif">Enter OTP</h2>
+              <h2 className="text-lg">Enter OTP</h2>
               <div className="flex flex-row justify-evenly items-center">
                 <div className="flex">
                   <input
@@ -193,7 +173,7 @@ function Otp(props) {
                     className="w-24 h-10 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                     onClick={verifyOTP}
                   >
-                    {t("Verify OTP")}
+                    Verify OTP
                   </button>
                 </div>
               </div>

@@ -119,7 +119,7 @@ const PatientMedicalHistory = ({ patientDetail }) => {
                 >
                     Send OTP
                 </button>)}
-                <p className='text-sm text-zinc-500 font-serif'>Patient needs to allow the access to his medical history</p>
+                <p className='text-sm text-zinc-500 font-normal'>Patient needs to allow the access to his medical history</p>
                 {showVerifyOTP && (
                     <div className="mt-2 grid md:grid-cols-2 md:gap-6 align-center justify-center">
                         <div className="relative z-0 w-full mb-6 group">
@@ -143,8 +143,8 @@ const PatientMedicalHistory = ({ patientDetail }) => {
             {showMedicalHistory && (
                 <div className="p-2 rounded-lg border-2 border-gray-200">
                     <table className="table-auto w-full mx-auto">
-                        <caption className="caption-top font-serif text-xl p-2 border-b-2">Prescriptions</caption>
-                        <thead className="font-serif text-md">
+                        <caption className="caption-top font-normal text-xl p-2 border-b-2">Prescriptions</caption>
+                        <thead className="font-normal text-md">
                             <tr>
                                 <th>Date</th>
                                 <th>Symptom</th>
@@ -152,7 +152,7 @@ const PatientMedicalHistory = ({ patientDetail }) => {
                                 <th>PDF</th>
                             </tr>
                         </thead>
-                        <tbody className="font-serif text-sm text-center">
+                        <tbody className="font-normal text-sm text-center">
                             {currentItems.length > 0 ? (
                                 currentItems.map((p) => (
                                     <tr key={p.prescriptionId} className='bg-blue-50 border-2'>

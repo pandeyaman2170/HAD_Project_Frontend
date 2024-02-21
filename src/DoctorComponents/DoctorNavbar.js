@@ -6,7 +6,7 @@ import WhiteLogo from "../components/images/whiteLogo.png";
 const DoctorNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="bg-blue-900 border-blue-600 dark:bg-blue-900 top-0 w-full z-20 left-0 dark:border-blue-600">
+    <nav className="bg-orange-600 border-blue-600 dark:bg-orange-600 top-0 w-full z-20 left-0 dark:border-orange-600">
       <div className="max-w-full mx-auto px-0 sm:px-6 lg:px-8">
         <div className="flex flex-row justify-between h-16">
           <div className="flex-shrink-0 flex items-center p-4">
@@ -14,8 +14,8 @@ const DoctorNavbar = () => {
           </div>
           <div className="flex flex-row items-center justify-end">
             <div className="relative flex flex-row items-center justify-end space-x-4">
-              <div><a href='/doctor' className='text-white font-medium font-serif hover:text-blue-200'>Home</a></div>
-              <div className='text-white font-medium font-serif'>Dr. Amit Khurana</div>
+              <div><a href='/doctor' className='text-white font-medium font-normal hover:text-blue-200'>Home</a></div>
+              <div className='text-white font-medium font-normal'>Dr. Amit Khurana</div>
               <div>
                 <button
                   className="py-2 rounded inline-flex items-center"
@@ -38,13 +38,13 @@ const DoctorNavbar = () => {
                     >
                       <a
                         href="/doctor/profile"
-                        className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900"
+                        className="block px-4 py-2 text-sm font-normal font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900"
                         role="menuitem"
                       >
                         Update Profile
                       </a>
                       <button
-                        className="w-full block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900"
+                        className="w-full block px-4 py-2 text-sm font-normal font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900"
                         role="menuitem"
                       >
                         Logout

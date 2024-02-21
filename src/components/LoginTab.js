@@ -20,7 +20,7 @@ const LoginTab = () => {
                 }`}
                 onClick={() => toggleTab(1)}
               >
-                <span className="text-lg font-serif">Patient</span>
+                <span className="text-lg">Patient</span>
               </button>
             </div>
             <div>
@@ -30,7 +30,7 @@ const LoginTab = () => {
                 }`}
                 onClick={() => toggleTab(2)}
               >
-                <span className="text-lg font-serif">Doctor</span>
+                <span className="text-lg">Doctor</span>
               </button>
             </div>
             <div>
@@ -40,7 +40,7 @@ const LoginTab = () => {
                 }`}
                 onClick={() => toggleTab(3)}
               >
-                <span className="text-lg font-serif">Admin</span>
+                <span className="text-lg">Admin</span>
               </button>
             </div>
           </div>

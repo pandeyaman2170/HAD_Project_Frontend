@@ -43,7 +43,7 @@
   }
   
   .step-content {
-    @apply text-white font-serif mb-2 text-center;
+    @apply text-white font-normal mb-2 text-center;
   }
   
   .step-line {
@@ -56,7 +56,7 @@
   }
   
   .step {
-    @apply w-44 flex items-center justify-around z-10 relative font-serif text-white;
+    @apply w-44 flex items-center justify-around z-10 relative font-normal text-white;
   }
   
   .step-number {

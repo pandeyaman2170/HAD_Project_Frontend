@@ -15,8 +15,8 @@ const AdminNavbar = () => {
           </div>
           <div className="flex flex-row items-center justify-end">
             <div className="relative flex flex-row items-center justify-end space-x-4">
-              <div><a href='/admin' className='text-white font-medium font-serif hover:text-blue-200'>Home</a></div>
-              <div className='text-white font-medium font-serif'>Admin</div>
+              <div><a href='/admin' className='text-white font-medium font-normal hover:text-blue-200'>Home</a></div>
+              <div className='text-white font-medium font-normal'>Admin</div>
               <div>
                 <button
                   className="py-2 rounded inline-flex items-center"
@@ -39,13 +39,13 @@ const AdminNavbar = () => {
                     >
                       <a
                         href="/admin/profile"
-                        className="block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900"
+                        className="block px-4 py-2 text-sm font-normal font-medium text-gray-700 hover:bg-blue-200 hover:text-gray-900"
                         role="menuitem"
                       >
                         Update Profile
                       </a>
                       <button
-                        className="w-full block px-4 py-2 text-sm font-serif font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900"
+                        className="w-full block px-4 py-2 text-sm font-normal font-medium text-gray-700 hover:bg-red-400 hover:text-gray-900"
                         role="menuitem"
                       >
                         Logout

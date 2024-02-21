@@ -27,7 +27,7 @@ const Infographics = () => {
 
   return (
     <div className=" bg-gradient-to-r border-t-4 border-blue-900 shadow-lg rounded-lg p-6">
-      <h2 className="text-lg font-bold font-serif mb-4">
+      <h2 className="text-lg font-bold font-normal mb-4">
         Total Consultations
       </h2>
       <LineChart width={500} height={200} data={data}>

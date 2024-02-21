@@ -1,127 +1,82 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-const Appointment = () => {
-  const navigate = useNavigate()
-  const patientDetails = JSON.parse(localStorage.getItem("patientDetails"))
-  // const [patientDetails,setPatientDetails] = useState()
-  const [departments, setDepartments] = useState()
-  const languages = ["English", "Hindi", "Marathi", "Tamil","Kannada", "Telugu","Gujarati","Punjabi","Bengali","Malayalam","Urdu"]
-  const [show, setShow] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const [isOpenLang, setIsOpenLang] = useState(false)
-  const [selectedDepartment, setSelectedDepartment] = useState("")
-  const [selectedLanguage, setSelectedLanguage] = useState("")
-  const [prevAppointment, setPrevAppointment] = useState(false)
-  const [count, setCount] = useState(0)
+const ConsultNow = () => {
+  const [departments, setDepartments] = useState([
+    { departmentName: "Department of Orthopedics" },
+  { departmentName: "Department of Cardiology" },
+  { departmentName: "Department of Neurology" },
+  { departmentName: "Department of Oncology" },
+  { departmentName: "Department of Pediatrics" },
+  { departmentName: "Department of Gynecology" },
+  { departmentName: "Department of Dermatology" },
+  { departmentName: "Department of Ophthalmology" },
+  { departmentName: "Department of Psychiatry" },
+  ]);
+  const languages = [
+    "English",
+    "Hindi",
+    "Marathi",
+    "Tamil",
+    "Kannada",
+    "Telugu",
+    "Gujarati",
+    "Punjabi",
+    "Bengali",
+    "Malayalam",
+    "Urdu",
+  ];
+  const [show, setShow] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenLang, setIsOpenLang] = useState(false);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [prevConsultation, setprevConsultation] = useState(false);
+  const [count, setCount] = useState(0);
 
   const toggleModal = () => {
     setShow(!show);
-  }
+  };
 
   const handleSelectDepartment = (department) => {
     setSelectedDepartment(department);
     setIsOpen(false);
-  }
+  };
 
   const handleSelectLanguage = (lang) => {
     setSelectedLanguage(lang);
     setIsOpenLang(false);
-  }
-
-  const fetchDept = async () => {
-    const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/department/getDepartment`)
-      .then((response) => {
-        setDepartments(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
-  const fetchPrevAppointment = async () => {
-    const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-    await axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/appointment/checkAppointments/${patientDetails?.patientId}`
-      )
-      .then((response) => {
-        setPrevAppointment(response.data)
-      })
-      .catch((error) => {
-        console.log("error", error)
-      });
-  }
+  };
 
   const OPD = () => {
-    navigate(`/patient/waitingroom`)
-  }
+    // Implement your functionality for OPD
+  };
 
-  const submitHandler = async (event) => {
-    // setShow(!show)
-    event.preventDefault()
-    const data = {
-      appointmentTimestamp: new Date(),
-      patientId: patientDetails?.patientId,
-      departmentName: selectedDepartment,
-      preferredLanguage: selectedLanguage
-    }
-    // console.log("data",data)
-    const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/appointment/requestAppointment`,data)
-      .then((response) => {
-        console.log("appointment set", response.data)
-        localStorage.setItem("ptAppointmentId", response.data)
-        // const appId = response.data
-        // console.log("appId",appId)
-        navigate(`/patient/waitingroom`)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-    setShow(!show)
-  }
+  const submitHandler = (event) => {
+    event.preventDefault();
+    // Implement your submitHandler logic
+  };
 
-  const deletePrevAppointment = async () => {
-    const jwtToken=localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
-    await axios
-      .delete(
-        `${process.env.REACT_APP_BACKEND_URL}/appointment/deleteAppointmentByPatientId/${patientDetails?.patientId}`
-      )
-      .then((response) => {
-        setCount(count + 1);
-      })
-      .catch((error) => {
-        console.log(`Error: ${error.message}`);
-        console.error("There was an error!", error);
-      });
-  }
+  const deleteprevConsultation = () => {
+    // Implement your deleteprevConsultation logic
+  };
 
   const handleClose = () => {
-    setShow(false)
-  }
+    setShow(false);
+  };
 
   useEffect(() => {
-    // setPatientDetails(JSON.parse(localStorage.getItem("patientDetails")))
-    fetchDept()
-    fetchPrevAppointment()
-  }, [count])
+    // Fetch previous appointments and other necessary data
+  }, [count]);
 
   return (
-    <div className="flex flex-col items-center justify-center border-2 border-gray-300 rounded-lg p-8 space-y-8">
-      <p className="font-serif text-5xl text-blue-950">Welcome to E-Aarogya</p>
+    <div className="flex flex-col items-center justify-center border-2 border-orange-600 rounded-lg p-8 space-y-8">
+      <p className="font-normal text-5xl text-blue-950">Welcome to Healthiest</p>
       {/* Button to open modal */}
-      {prevAppointment ?
+      {prevConsultation ?
         (<div className="flex flex-row justify-evenly  p-4 items-center w-full">
           <button
             className="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-            onClick={deletePrevAppointment}
+            onClick={deleteprevConsultation}
           >
             Revoke Consultation
           </button>
@@ -137,7 +92,7 @@ const Appointment = () => {
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
           onClick={toggleModal}
         >
-          Apply for Consultation
+          ConsultNow
         </button>
       }
       {/* Modal */}
@@ -152,7 +107,7 @@ const Appointment = () => {
               {/* Modal content */}
               <div className="bg-blue-50 flex flex-col justify-center items-center">
                 <div className="flex flex-row justify-between w-full p-4">
-                  <h2 className="text-xl font-bold mb-2 font-serif ml-8">Apply for Consultation</h2>
+                  <h2 className="text-xl font-bold mb-2 font-normal ml-8">Apply for Consultation</h2>
                   <button onClick={handleClose}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +129,7 @@ const Appointment = () => {
                 <div className="relative flex flex-col items-center w-[340px] rounded-lg">
                   <button
                     onClick={() => setIsOpen((prev) => !prev)}
-                    className="p-2 bg-blue-100 w-full flex items-center justify-between mb-4 font-serif text-lg rounded-lg border-4 border-gray-500 active:border-blue-100 duration-300"
+                    className="p-2 bg-blue-100 w-full flex items-center justify-between mb-4 font-normal text-lg rounded-lg border-4 border-gray-500 active:border-blue-100 duration-300"
                   >
                     {selectedDepartment ? selectedDepartment : "Select Department"}
                     <svg
@@ -211,7 +166,7 @@ const Appointment = () => {
                 <div className="relative flex flex-col items-center w-[340px] rounded-lg">
                   <button
                     onClick={() => setIsOpenLang((prev) => !prev)}
-                    className="p-2 bg-blue-100 w-full flex items-center justify-between font-serif text-lg rounded-lg border-4 border-transparent active:border-blue-100 duration-300"
+                    className="p-2 bg-blue-100 w-full flex items-center justify-between font-normal text-lg rounded-lg border-4 border-transparent active:border-blue-100 duration-300"
                   >
                     {selectedLanguage ? selectedLanguage : "Select Language"}
                     <svg
@@ -259,4 +214,4 @@ const Appointment = () => {
   );
 };
 
-export default Appointment;
+export default ConsultNow;

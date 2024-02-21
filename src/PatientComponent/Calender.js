@@ -110,7 +110,7 @@ const Calendar = () => {
   }, [])
 
   return (
-    <div className='container mx-auto font-serif' style={{ height: "100%", width: "100%", marginTop: "0" }}>
+    <div className='container mx-auto font-normal' style={{ height: "100%", width: "100%", marginTop: "0" }}>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"

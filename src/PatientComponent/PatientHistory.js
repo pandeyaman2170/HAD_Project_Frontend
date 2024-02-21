@@ -1,58 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+
 const PatientHistory = () => {
+  // Sample data for the table
+  const prescriptions = [
+    { date: '2-feb-2023', medicalFindings: 'Sneezing', remarks: 'Severe' },
+    { date: '3-feb-2023', medicalFindings: 'Cough', remarks: 'Mild' },
+    { date: '2-feb-2023', medicalFindings: 'Sneezing', remarks: 'Severe' },
+    { date: '3-feb-2023', medicalFindings: 'Cough', remarks: 'Mild' },
+    { date: '2-feb-2023', medicalFindings: 'Sneezing', remarks: 'Severe' },
+    { date: '3-feb-2023', medicalFindings: 'Cough', remarks: 'Mild' },
+    { date: '2-feb-2023', medicalFindings: 'Sneezing', remarks: 'Severe' },
+    { date: '3-feb-2023', medicalFindings: 'Cough', remarks: 'Mild' },
+    // Add more data as needed
+  ];
+
   return (
-    <div className="p-6 rounded-lg border-2 border-gray-200">
-      <table className="table-auto w-full mx-auto">
-        <caption className="caption-top font-serif text-2xl p-2 border-b-2">Prescriptions</caption>
-        <thead className="font-serif text-lg">
+    <div className="p-6 rounded-lg border-2 border-orange-600">
+      <table className="table-auto w-full mx-auto border-orange-600">
+        <caption className="caption-top font-normal text-2xl p-2 border-b-2">Prescriptions</caption>
+        <thead className="font-normal text-lg">
           <tr>
             <th>Date</th>
             <th>Medical Findings</th>
             <th>Remarks</th>
-            <th>View PDF</th>
+            <th>View Prescription</th>
           </tr>
         </thead>
-        <tbody className="font-serif text-md text-center">
-          <tr className='bg-blue-50 border-2'>
-                <td>2-feb-2023</td>
-                <td>Sneezing</td>
-                <td>Severe</td>
-                <td className='p-2'>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded">
-                    download pdf
-                  </button>
-                </td>
-          </tr>
-          <tr className='bg-blue-50 border-2'>
-                <td>3-feb-2023</td>
-                <td>cough</td>
-                <td>mild</td>
-                <td className='p-2'>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded">
-                    download pdf
-                  </button>
-                </td>
-          </tr>
-          <tr className='bg-blue-50 border-2'>
-                <td>2-feb-2023</td>
-                <td>Sneezing</td>
-                <td>Severe</td>
-                <td className='p-2'>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded">
-                    download pdf
-                  </button>
-                </td>
-          </tr>
-          <tr className='bg-blue-50 border-2'>
-                <td>3-feb-2023</td>
-                <td>cough</td>
-                <td>mild</td>
-                <td className='p-2'>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded">
-                    download pdf
-                  </button>
-                </td>
-          </tr>
+        <tbody className="font-normal text-md text-center">
+          {prescriptions.map((prescription, index) => (
+            <tr key={index} className={index % 2 === 0 ? 'bg-blue-50' : 'bg-white'}>
+              <td>{prescription.date}</td>
+              <td>{prescription.medicalFindings}</td>
+              <td>{prescription.remarks}</td>
+              <td className='p-2'>
+                <button className="bg-orange-600 hover:bg-orange-600 text-white py-2 px-2 rounded-lg">
+                  Download
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

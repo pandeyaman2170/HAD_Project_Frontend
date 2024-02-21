@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
@@ -11,7 +10,7 @@ const NavBar = () => {
   };
   return (
     <div>
-      <nav className="bg-orange-700 fixed  w-full z-20 top-0 left-0 border-orange-700">
+      <nav className="bg-orange-600 fixed  w-full z-20 top-0 left-0 border-orange-700">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <div className="flex items-center flex-shrink-0">
             <img src = "./images/whiteLogo.png" alt="logo" className="w-auto h-8"/>
