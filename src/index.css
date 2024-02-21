@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif; /* Change font family */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333; /* Change font color */
+}
+
+code {
+  font-family: 'Courier New', monospace; /* Change font family */
+  color: #555; /* Change font color */
+}
+
+.calender-container {
+  width: 300px;
+  height: 300px;
+}
+
+@media (max-width: 768px) {
+  .calender-container {
+    height: 300px;
+  }
+}
+
+/* .popoverStyle{
+  z-index: 99999 !important;
+}
+
+a{
+  color: #212529 !important;
+} */
