@@ -18,11 +18,10 @@ function  AppHomePage(){
       ];
   
     const imagePath = require('../resources/images/home_image.jpg');
-    const hospitalImage = require('./hospital.svg').default;
-    // const hospitalImage = require('../resources/images/hospital.svg');
+    const hospitalImage = require('../resources/images/hospital.svg').default;
     return(
         <div>
-            <Navbar/>
+            <Navbar showLoginButtons={true}/>
             <div className="body-container">
                 <div className='body-image-container'>
                     <img src={imagePath} alt="Home page image" /> 

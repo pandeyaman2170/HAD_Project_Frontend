@@ -4,7 +4,7 @@ import "./Navbar.css";
 import { CodeIcon, HamburgetMenuClose, HamburgetMenuOpen } from "./Icons";
 import Button from "./Button";
 
-function Navbar() {
+const Navbar = ({ showLoginButtons }) =>{
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -12,7 +12,7 @@ function Navbar() {
     <>
       <nav className="navbar">
         <div className="nav-container">
-          <NavLink exact to="/" className="nav-logo">
+          <NavLink exact to="/healthiest/home" className="nav-logo">
             <div style={{ fontWeight: 'bold', fontSize: '2rem', cursor: 'pointer', display: 'flex', alignItems: 'center', fontFamily: 'Poppins', color: '#2d3748' }}>
                 <span style={{ fontSize: '3rem', color: '#4f46e5', marginRight: '0.25rem', paddingTop: '0.5rem' }}>
                     <ion-icon name="logo-ionic"></ion-icon>
@@ -57,7 +57,12 @@ function Navbar() {
               </NavLink>
             </li>
             <li>
-                <Button>Login/Sign Up</Button>
+            {showLoginButtons && (
+                <NavLink exact to='/healthiest/home/Patient/Login'>
+                  <Button>Login/Sign Up</Button>
+                </NavLink>
+              )}
+              
             </li>
           </ul>
           <div className="nav-icon" onClick={handleClick}>

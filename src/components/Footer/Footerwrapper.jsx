@@ -1,6 +1,9 @@
 import React from 'react';
-import Section from '../Section/Section';
+// import Section from '../Section/Section';
 import Footer from './Footer';
+import styled from 'styled-components';
+
+const Section = styled.section``;
 
 const Footerwrapper = () => {
 	return (
