@@ -142,21 +142,29 @@ const Prescription = () => {
     }, [clickedButton]);
 
     return (
-        <div className='w-full p-8 items-center justify-center bg-blue-50 border-l-4 border-b-4 shadow-lg border-orange-600'>
-        <div className='grid grid-cols-2'>
+        <div className='w-full p-8 items-center justify-center bg-orange-50 border-l-4 border-b-4 shadow-lg border-orange-600'>
+        <div className='grid grid-row-2'>
             <div className='relative z-0 w-full mb-6 group font-normal'>
-                <img src={GradientLogo} alt='logo' className='mx-auto w-48' />
+                {/* <img src={GradientLogo} alt='logo' className='mx-auto w-48' /> */}
+                <div className="flex items-center flex-shrink-0 md:justify-center">
+                  <div className="font-bold text-5xl cursor-pointer flex items-center text-orange-700 font-poppins">
+                  <span className="text-6xl text-orange-700 pr-2">
+                    <ion-icon name="logo-ionic"></ion-icon>
+                  </span>
+                  <span className="text-5xl text-blue font-roboto text-center">Healthiest</span>
+                  </div>
+                </div>
             </div>
-            <div className='relative z-0 w-full mb-6 group font-normal text-lg'>
-                <p>Name : {patientDetail.firstName}</p>
-                <p>Gender : {patientDetail.gender}</p>
-                <p>Age : {ptAge}</p>
+            <div className='relative z-0 w-full mb-6 group font-normal text-lg text-center font-bold'>
+                <p className='font-bold'>Name : {patientDetail.firstName}</p>
+                <p className='font-bold'>Gender : {patientDetail.gender}</p>
+                <p className='font-bold'>Age : {ptAge}</p>
             </div>
         </div>
         <form className='items-center justify-evenly'>
             <div className="relative z-0 w-full mb-6 group">
-                <input type="text" name="symptom" id="symptom" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " value={observation} onChange={(e) => setObservation(e.target.value)} required />
-                <label for="symptom" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Symptom</label>
+                <input type="text" name="symptom" id="symptom" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " value={observation} onChange={(e) => setObservation(e.target.value)} required />
+                <label for="symptom" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Symptom</label>
             </div>
             {inputFeilds.map((input, index) => {
                 return (
@@ -164,19 +172,19 @@ const Prescription = () => {
                         <div className='grid grid-cols-5 gap-4'>
                             <div className="col-span-4 grid md:grid-cols-3 md:gap-6" style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gridColumnGap: "1.5rem" }}>
                                 <div className="relative z-0 w-full mb-6 group" style={{ gridColumn: "1/3" }}>
-                                    <input type="text" name="medicine" id="medicine" autoComplete='false' value={input.medicine} onChange={(event) => handleFormChange(index, event)} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                    <label for="medicine" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Medicine</label>
+                                    <input type="text" name="medicine" id="medicine" autoComplete='false' value={input.medicine} onChange={(event) => handleFormChange(index, event)} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " required />
+                                    <label for="medicine" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Medicine</label>
                                 </div>
                                 <div className="relative z-0 w-full mb-6 group" style={{ gridColumn: "3/5" }}>
-                                    <input type="text" name="dosage" id="dosage" autoComplete='false' value={input.dosage} onChange={(event) => handleFormChange(index, event)} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                    <label for="dosage" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Dosage</label>
+                                    <input type="text" name="dosage" id="dosage" autoComplete='false' value={input.dosage} onChange={(event) => handleFormChange(index, event)} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " required />
+                                    <label for="dosage" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Dosage</label>
                                 </div>
                                 <div className="relative z-0 w-full mb-6 group space-x-2" style={{ gridColumn: "5/7" }}>
-                                    <button onClick={() => removeFields(index)}><FontAwesomeIcon icon={faCircleArrowDown} size='2xl' style={{ color: "#ec0909", }} /></button>
+                                    <button onClick={() => removeFields(index)}><FontAwesomeIcon icon={faSquareMinus}   size='2xl' style={{ color: "#ec0909", }} /></button>
                                 </div>
                             </div>
                             <div className='col-span-1'>
-                                <button onClick={addFields}><FontAwesomeIcon icon={faCircleArrowUp} size='2xl' style={{ color: "#008000", }} /></button>
+                                <button onClick={addFields}><FontAwesomeIcon icon={faSquarePlus} size='2xl' style={{ color: "#008000", }} /></button>
                             </div>
                         </div>
                         <Dropdown
@@ -224,8 +232,8 @@ const Prescription = () => {
                 )
             })}
             <div className="relative z-0 w-full mb-6 group">
-                <input type="text" name="Remarks" id="Remarks" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " value={advice} onChange={(e) => setAdvice(e.target.value)} required />
-                <label for="Remarks" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Medical Findings</label>
+                <input type="text" name="Remarks" id="Remarks" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " value={advice} onChange={(e) => setAdvice(e.target.value)} required />
+                <label for="Remarks" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Medical Findings</label>
             </div>
             {/* show follow-up */}
             <div className='relative z-0 w-full mb-6 group'>
@@ -239,7 +247,7 @@ const Prescription = () => {
                             onChange={handleToggle}
                             placeholder='Select Date'
                         />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-orange-600"></div>
                         <span className="ml-3 text-sm font-normal text-gray-900 dark:text-gray-800">
                             Follow up
                         </span>
@@ -269,7 +277,7 @@ const Prescription = () => {
                             onChange={handleHistory}
                             placeholder='Show Patient Medical History'
                         />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-orange-600"></div>
                         <span className="ml-3 text-sm font-normal text-gray-900 dark:text-gray-800">
                             Show Patient E-Aarogya Medical History
                         </span>
@@ -290,7 +298,7 @@ const Prescription = () => {
                                         {file}
                                     </li>
                                     <li key={`view-${index}`}>
-                                        <button className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleViewClick(file)}>
+                                        <button className="bg-orange-400 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleViewClick(file)}>
                                             View
                                         </button>
                                     </li>

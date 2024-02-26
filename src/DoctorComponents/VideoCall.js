@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react'
+
 
 const VideoCall = () => {
     const localVideoRef = useRef(null);
@@ -44,7 +45,7 @@ const VideoCall = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-full bg-orange-200">
+        <div className="flex flex-col items-center justify-center h-full bg-gray-200">
             <h2 className="text-xl font-bold text-gray-800 mb-4">Video Call</h2>
             <div className="flex flex-col items-center justify-center">
                 {/* Increase the width and height of the video elements */}
@@ -54,6 +55,4 @@ const VideoCall = () => {
         </div>
     );
 }
-
-export default VideoCall;
-
+export default VideoCall

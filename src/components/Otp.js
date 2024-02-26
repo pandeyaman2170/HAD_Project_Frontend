@@ -136,6 +136,7 @@ function Otp(props) {
           <div className="flex flex-row justify-evenly items-center">
             <div className="flex flex-col">
               <PhoneInput
+                country={'in'}
                 placeholder="Enter phone number"
                 value={phoneNumber}
                 onChange={setPhoneNumber}
@@ -145,7 +146,7 @@ function Otp(props) {
             <div className="p-2">
               <button
                 type="submit"
-                className="w-24 h-10 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                className="w-24 h-10 bg-orange-700 text-white rounded-lg hover:bg-orange-600"
                 onClick={sendOTP}
               >
                 Send OTP
@@ -170,7 +171,7 @@ function Otp(props) {
                 <div className="p-2">
                   <button
                     type="submit"
-                    className="w-24 h-10 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                    className="w-24 h-10 bg-orange-500 text-white rounded-lg hover:bg-orange-700"
                     onClick={verifyOTP}
                   >
                     Verify OTP

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DoctorNavbar from './DoctorNavbar';
 import PatientQueue from './PatientQueue';
+import HomePageFooter from "../components/HomePageFooter";
 
 // TodayConsultation component
 const TodayConsultation = () => {
@@ -12,23 +13,23 @@ const TodayConsultation = () => {
   ];
 
   return (
-    <div className="bg-gray-100 shadow-lg rounded-lg p-6">
+    <div className="bg-orange-100 shadow-lg rounded-lg p-6">
       <h2 className="text-2xl font-bold mb-4">Today's Consultations</h2>
       <div className="overflow-auto max-h-96">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-gray-200">
-              <th className="border border-gray-400 px-4 py-2">Patient ID</th>
-              <th className="border border-gray-400 px-4 py-2">Medical Findings</th>
-              <th className="border border-gray-400 px-4 py-2">Remarks</th>
+            <tr className="bg-orange-200">
+              <th className="border border-orange-400 px-4 py-2">Patient ID</th>
+              <th className="border border-orange-400 px-4 py-2">Medical Findings</th>
+              <th className="border border-orange-400 px-4 py-2">Remarks</th>
             </tr>
           </thead>
           <tbody>
             {todayConsultations.map((consultation, index) => (
-              <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}>
-                <td className="border border-gray-400 px-4 py-2">{consultation.patientId}</td>
-                <td className="border border-gray-400 px-4 py-2">{consultation.medicalFindings}</td>
-                <td className="border border-gray-400 px-4 py-2">{consultation.remarks}</td>
+              <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-orange-100'}>
+                <td className="border border-orange-400 px-4 py-2">{consultation.patientId}</td>
+                <td className="border border-orange-400 px-4 py-2">{consultation.medicalFindings}</td>
+                <td className="border border-orange-400 px-4 py-2">{consultation.remarks}</td>
               </tr>
             ))}
           </tbody>
@@ -58,12 +59,14 @@ const DoctorDashboard = () => {
   };
 
   return (
-    <div className="bg-blue-50 flex flex-col items-center justify-center">
-      <DoctorNavbar />
+    <>
+    <DoctorNavbar />
+    <div className="bg-orange-50 flex flex-col items-center justify-center">
+      
       <div className="flex justify-center w-full mb-8">
         <div className="w-full max-w-screen-lg">
           {/* Total Consultations */}
-          <div className="bg-blue-100 shadow-lg rounded-lg p-6 mb-8 text-center">
+          <div className="bg-orange-100 shadow-lg rounded-lg p-6 mb-8 text-center">
             <h2 className="text-2xl font-bold mb-4">Total Consultations</h2>
             <p className="text-5xl font-bold">{totalConsultations}</p>
           </div>
@@ -75,23 +78,23 @@ const DoctorDashboard = () => {
             {/* Past History */}
             <div className="w-1/2">
               {showAllPastConsultations && (
-                <div className="bg-gray-100 shadow-lg rounded-lg p-6">
+                <div className="bg-orange-100 shadow-lg rounded-lg p-6">
                   <h2 className="text-2xl font-bold mb-4">Past History</h2>
                   <div className="overflow-auto max-h-96">
                     <table className="w-full border-collapse">
                       <thead>
-                        <tr className="bg-gray-200">
-                          <th className="border border-gray-400 px-4 py-2">Patient ID</th>
-                          <th className="border border-gray-400 px-4 py-2">Medical Findings</th>
-                          <th className="border border-gray-400 px-4 py-2">Remarks</th>
+                        <tr className="bg-orange-200">
+                          <th className="border border-orange-400 px-4 py-2">Patient ID</th>
+                          <th className="border border-orange-400 px-4 py-2">Medical Findings</th>
+                          <th className="border border-orange-400 px-4 py-2">Remarks</th>
                         </tr>
                       </thead>
                       <tbody>
                         {pastHistory.map((consultation, index) => (
-                          <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}>
-                            <td className="border border-gray-400 px-4 py-2">{consultation.patientId}</td>
-                            <td className="border border-gray-400 px-4 py-2">{consultation.medicalFindings}</td>
-                            <td className="border border-gray-400 px-4 py-2">{consultation.remarks}</td>
+                          <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-orange-100'}>
+                            <td className="border border-orange-400 px-4 py-2">{consultation.patientId}</td>
+                            <td className="border border-orange-400 px-4 py-2">{consultation.medicalFindings}</td>
+                            <td className="border border-orange-400 px-4 py-2">{consultation.remarks}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -101,7 +104,7 @@ const DoctorDashboard = () => {
               )}
               {/* Past History Button */}
               <div className="text-center">
-                <button onClick={handleShowAllPastConsultations} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
+                <button onClick={handleShowAllPastConsultations} className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mb-4">
                   {showAllPastConsultations ? "Hide Past Consultations" : "Show All Past Consultations"}
                 </button>
               </div>
@@ -109,8 +112,12 @@ const DoctorDashboard = () => {
           </div>
         </div>
       </div>
-      <PatientQueue />
+      {/* <div> */}
+        <PatientQueue />
+      {/* </div> */}
+      
     </div>
+    </>
   );
 };
 

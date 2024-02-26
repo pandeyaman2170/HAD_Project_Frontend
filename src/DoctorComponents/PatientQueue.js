@@ -6,6 +6,8 @@ const PatientQueue = () => {
   const patientQueue = [
     { tokenId: 'T001', patientId: 101, name: 'John Doe' },
     { tokenId: 'T002', patientId: 102, name: 'Jane Smith' },
+    { tokenId: 'T002', patientId: 102, name: 'Jane Smith' },
+    { tokenId: 'T002', patientId: 102, name: 'Jane Smith' },
     // Add more patients in the queue
   ];
 
@@ -20,25 +22,25 @@ const PatientQueue = () => {
   };
 
   return (
-    <div className="bg-gray-100 shadow-lg rounded-lg p-6">
+    <div className="bg-orange-100 shadow-lg rounded-lg p-6">
       <h2 className="text-2xl font-bold mb-4">Patient Queue</h2>
       <div className="overflow-auto max-h-96">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-gray-200">
-              <th className="border border-gray-400 px-4 py-2">Token ID</th>
-              <th className="border border-gray-400 px-4 py-2">Patient ID</th>
-              <th className="border border-gray-400 px-4 py-2">Name</th>
-              <th className="border border-gray-400 px-4 py-2">Actions</th>
+            <tr className="bg-orange-200">
+              <th className="border border-orange-400 px-4 py-2">Token ID</th>
+              <th className="border border-orange-400 px-4 py-2">Patient ID</th>
+              <th className="border border-orange-400 px-4 py-2">Name</th>
+              <th className="border border-orange-400 px-4 py-2">Actions</th>
             </tr>
           </thead>
           <tbody>
             {patientQueue.map((patient, index) => (
-              <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}>
-                <td className="border border-gray-400 px-4 py-2">{patient.tokenId}</td>
-                <td className="border border-gray-400 px-4 py-2">{patient.patientId}</td>
-                <td className="border border-gray-400 px-4 py-2">{patient.name}</td>
-                <td className="border border-gray-400 px-4 py-2">
+              <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-orange-100'}>
+                <td className="border border-orange-400 px-4 py-2">{patient.tokenId}</td>
+                <td className="border border-orange-400 px-4 py-2">{patient.patientId}</td>
+                <td className="border border-orange-400 px-4 py-2">{patient.name}</td>
+                <td className="border border-orange-400 px-4 py-2">
                   <button onClick={() => handleAcceptCall(patient.tokenId)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2">
                     Accept
                   </button>

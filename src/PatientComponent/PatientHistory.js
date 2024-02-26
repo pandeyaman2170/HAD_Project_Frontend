@@ -28,7 +28,7 @@ const PatientHistory = () => {
         </thead>
         <tbody className="font-normal text-md text-center">
           {prescriptions.map((prescription, index) => (
-            <tr key={index} className={index % 2 === 0 ? 'bg-blue-50' : 'bg-white'}>
+            <tr key={index} className={index % 2 === 0 ? 'bg-orange-200' : 'bg-grey'}>
               <td>{prescription.date}</td>
               <td>{prescription.medicalFindings}</td>
               <td>{prescription.remarks}</td>

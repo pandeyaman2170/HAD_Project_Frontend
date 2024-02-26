@@ -4,12 +4,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoginNavbar from '../components/LoginNavbar';
+import AdminNavbar from './AdminNavbar';
+
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { authentication } from "../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
-const PatientRegistration = () => {
+const AddDoctor = () => {
 
     const navigate = useNavigate()
     const [title, setTitle] = useState("")
@@ -17,6 +19,8 @@ const PatientRegistration = () => {
     const [lastName, setLastName] = useState("")
     const [gender, setGender] = useState("")
     const [selectedDate, setSelectedDate] = useState(null);
+    const [role, setRol]=useState("Doctor");
+    const [regNumber, setregNumber]=useState("");
     const [email, setEmail] = useState("")
     const [phoneNo, setPhoneNo] = useState("")
     const [address, setAddress] = useState("")
@@ -27,6 +31,9 @@ const PatientRegistration = () => {
     const [send, setSend] = useState(false);
     const [validOTP, setValidOTP] = useState(false);
     const [isValid, setIsValid] = useState(false);
+
+    const [selectedDepartment, setSelectedDepartment] = useState("");
+    const [departments, setDepartments] = useState("");
 
     const generateRecaptcha = () => {
         window.recaptchaVerifier = new RecaptchaVerifier(
@@ -105,11 +112,11 @@ const PatientRegistration = () => {
 
     return (
         <div className='flex flex-col justify-center'>
-            <LoginNavbar />
+            <AdminNavbar />
             <div className='flex items-center justify-center h-screen mt-4'>
                 <div className='w-full flex items-center justify-center'>
                     <form onSubmit={handleSubmit} className='w-4/5 p-8 items-center justify-evenly h-4/5 font-normal border-2 border-gray-200 rounded-lg'>
-                        <h1 className='mb-10 text-center text-4xl'>Patient Registration</h1>
+                        <h1 className='mb-10 text-center text-4xl font-extrabold text-orange-900'>Add Doctor</h1>
                         <div className="grid md:grid-cols-3 md:gap-6 align-center justify-center">
                             <div className="relative z-0 w-full mb-6 group" >
                                 <select id="Title" className=" text-gray-900 text-sm rounded-lg border-2 border-gray-200 focus:ring-orange-500 focus:border-orange-500 block w-full p-2 bg-transparent" placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} required>
@@ -128,7 +135,7 @@ const PatientRegistration = () => {
                                 <label for="LastName" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Lastname</label>
                             </div>
                         </div>
-                        <div className='grid md:grid-cols-2 md:gap-6 align-center justify-center'>
+                        <div className='grid md:grid-cols-3 md:gap-6 align-center justify-center'>
                             <div className="relative z-0 w-full mb-6 group items-center justify-center" >
                                 <select id="Gender" className="border-2 border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2 bg-transparent" value={gender} onChange={(e) => setGender(e.target.value)} required>
                                     <option>Gender</option>
@@ -145,6 +152,10 @@ const PatientRegistration = () => {
                                     className="block w-full px-4 py-2 text-gray-700 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
+                            <div className="relative z-0 w-full mb-6 group">
+                                <input type="text" name="regNumber" id="FirstName" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-700 dark:focus:border-orange-600 focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " value={regNumber} onChange={(e) => setregNumber(e.target.value)} required />
+                                <label for="regNumber" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-700 peer-focus:dark:text-orange-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Registration Number</label>
+                            </div>
                         </div>
                         <div className="grid md:grid-cols-3 md:gap-4 align-center justify-center">
                             <div className="relative z-0 w-full mb-6 group">
@@ -156,7 +167,7 @@ const PatientRegistration = () => {
                                     <input type="tel" pattern="[+0-9]{3}[0-9]{10}" autoComplete='false' name="floating_phone" id="floating_phone" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} required disabled={validOTP}/>
                                     <label for="floating_phone" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone number (add +91)</label>
                                 </div>
-                                {validOTP ? (<div className='relative z-0 w-full mb-6 group'><FontAwesomeIcon icon={faCheck} style={{color: "#0bd046",}} /></div>
+                                {/* {validOTP ? (<div className='relative z-0 w-full mb-6 group'><FontAwesomeIcon icon={faCheck} style={{color: "#0bd046",}} /></div>
                                 ) :(<div className='relative z-0 mb-6 group'>
                                     <button
                                         type="submit"
@@ -165,9 +176,9 @@ const PatientRegistration = () => {
                                     >
                                         Send OTP
                                     </button>
-                                </div>)}
+                                </div>)} */}
                             </div>
-                            {send ? (
+                            {/* {send ? (
                                 (<div className='relative z-0 w-full group flex flex-row'>
                                     <div className='relative z-0 w-full group'>
                                         <input type="otp" name="OTP" id="OTP" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " value={otp} onChange={(e) => setOtp(e.target.value)} required />
@@ -185,7 +196,19 @@ const PatientRegistration = () => {
                                 </div>)
                             ) : (
                                 <div></div>
-                            )}
+                            )} */}
+
+                            <div className="relative z-0 w-full mb-6 group" >
+                                <select id="departments" className=" text-gray-900 text-sm rounded-lg border-2 border-gray-200 focus:ring-orange-500 focus:border-orange-500 block w-full p-2 bg-transparent" placeholder='Departments' value={departments} onChange={(e) => setDepartments(e.target.value)} required>
+                                    <option>Department</option>
+                                    <option>Department of General Physician</option>
+                                    <option>Department of Gynecology</option>
+                                    <option>Department of Pediatrics</option>
+                                    <option>Department of ENT</option>
+                                    <option>Department of Dermatology</option>
+                                </select>
+                            </div>
+
                         </div>
                         <div className="relative z-0 w-full mb-6 group">
                             <input type="text" name="Address" id="Address" autoComplete='false' className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " value={address} onChange={(e) => setAddress(e.target.value)} required />
@@ -213,4 +236,4 @@ const PatientRegistration = () => {
     )
 }
 
-export default PatientRegistration
+export default AddDoctor

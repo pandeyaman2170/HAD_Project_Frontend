@@ -16,7 +16,7 @@ const PatientVideoCallPage = () => {
                     <VideoCall />
                 </div>
                 {/* File Upload Section */}
-                <div className='p-0'>
+                <div className='p-0 bg-orange-100'>
                     <FileUpload />
                 </div>
             </div>

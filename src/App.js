@@ -13,6 +13,7 @@ import PatientWaitingRoom from './PatientComponent/PatientWaitingRoom';
 import PatientUpdateProfile from './PatientComponent/PatientUpdateProfile';
 import PatientVideoCallPage from './PatientComponent/PatientVideoCallPage';
 import AdminDashboard from './AdminComponents/AdminDashboard';
+import AddDoctor from './AdminComponents/AddDoctor';
 const App = () => {
   return (
     <div>
@@ -30,6 +31,7 @@ const App = () => {
           <Route path='/patient/updateProfile' element={<PatientUpdateProfile />} />
           <Route path='/patient/patientVideoCall' element={<PatientVideoCallPage />} />
           <Route path='/admin' element={<AdminDashboard />} />
+          <Route path='/admin/addDoctor' element={<AddDoctor/>} />
         </Routes>
       </BrowserRouter>
       </Suspense>

@@ -7,11 +7,18 @@ const AdminNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-orange-400 border-orange-400 dark:bg-orange-400 top-0 w-full z-20 left-0 dark:border-orange-200">
+    <nav className="bg-orange-600 border-orange-400 dark:bg-orange-400 top-0 w-full z-20 left-0 dark:border-orange-200">
       <div className="max-w-full mx-auto px-0 sm:px-6 lg:px-8">
         <div className="flex flex-row justify-between h-16">
           <div className="flex-shrink-0 flex items-center p-4">
-            <a href='/admin'><img src={WhiteLogo} alt="logo" className="w-auto h-9" /></a>
+            <div className="flex items-center flex-shrink-0 drop-shadow-xl">
+              <div className="font-bold text-2xl cursor-pointer flex items-center font-poppins text-gray-700">
+              <span className="text-5xl text-lime-50 pr-2">
+                <ion-icon name="logo-ionic"></ion-icon>
+              </span>
+              <span className="text-4xl text-white font-roboto text-center">Healthiest</span>
+              </div>
+            </div>
           </div>
           <div className="flex flex-row items-center justify-end">
             <div className="relative flex flex-row items-center justify-end space-x-4">

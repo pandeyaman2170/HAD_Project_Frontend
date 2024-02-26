@@ -4,11 +4,15 @@ const LoginNavbar = () => {
   return (
     <div>
       <nav className="bg-orange-600 fixed  w-full z-20 top-0 left-0 border-orange-600">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
           <div className="flex items-center flex-shrink-0">
-            <a href='/'>
-              <img src="./images/whiteLogo.png" alt="logo" className="w-auto h-8" />
-            </a>
+            {/* <img src = "./images/whiteLogo.png" alt="logo" className="w-auto h-8"/> */}
+            <div className="font-bold text-2xl cursor-pointer flex items-center font-poppins text-gray-700">
+            <span className="text-5xl text-lime-50 pr-2">
+              <ion-icon name="logo-ionic"></ion-icon>
+            </span>
+            <span className="text-4xl text-white font-roboto text-center">Healthiest</span>
+            </div>
           </div>
           <div className="flex justify-end">
             <div className="flex md:order-2">

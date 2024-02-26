@@ -12,11 +12,11 @@ const LoginTab = () => {
     <div className="flex items-center bg-gradient-to-br">
       <div className="max-w-3xl mx-auto px-8 sm:px-0">
         <div className="sm:w-7/12 sm:mx-auto flex flex-col justify-center items-center">
-          <div className="relative w-max mx h-12 grid grid-cols-3 justify-items-center items-center px-[3px] rounded-full bg-blue-100 overflow-hidden shadow-lg shadow-900/20 transition">
+          <div className="relative w-max mx h-12 grid grid-cols-3 justify-items-center items-center px-[3px] rounded-full bg-orange-100 overflow-hidden shadow-lg shadow-900/20 transition">
             <div>
               <button
-                className={`active:bg-blue-500 active focus:outline-none focus:bg-blue-500 relative block h-10 px-6 rounded-full ${
-                  toggleState === 1 && "bg-blue-500"
+                className={`active:bg-orange-800 active focus:outline-none focus:bg-orange-500 relative block h-10 px-6 rounded-full ${
+                  toggleState === 1 && "bg-orange-500"
                 }`}
                 onClick={() => toggleTab(1)}
               >
@@ -25,8 +25,8 @@ const LoginTab = () => {
             </div>
             <div>
               <button
-                className={`active:bg-blue-800 focus:outline-none focus:bg-blue-700 relative block h-10 px-6 rounded-full ${
-                  toggleState === 2 && "bg-blue-700"
+                className={`active:bg-orange-800 focus:outline-none focus:bg-orange-500 relative block h-10 px-6 rounded-full ${
+                  toggleState === 2 && "bg-orange-500"
                 }`}
                 onClick={() => toggleTab(2)}
               >
@@ -35,8 +35,8 @@ const LoginTab = () => {
             </div>
             <div>
               <button
-                className={`active:bg-blue-800 focus:outline-none focus:bg-blue-700 relative block h-10 px-6 rounded-full ${
-                  toggleState === 3 && "bg-blue-700"
+                className={`active:bg-orange-800 focus:outline-none focus:bg-orange-500 relative block h-10 px-6 rounded-full ${
+                  toggleState === 3 && "bg-orange-500"
                 }`}
                 onClick={() => toggleTab(3)}
               >
@@ -52,7 +52,7 @@ const LoginTab = () => {
                   <p className="mb-0 mr-2">Don't have an account?</p>
                   <a
                     href="/register"
-                    className="text-blue-500 hover:text-blue-900"
+                    className="text-orange-500 hover:text-orange-900"
                   >
                     Register
                   </a>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import WhiteLogo from "../components/images/whiteLogo.png";
 
 const DoctorNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,8 +8,15 @@ const DoctorNavbar = () => {
     <nav className="bg-orange-600 border-blue-600 dark:bg-orange-600 top-0 w-full z-20 left-0 dark:border-orange-600">
       <div className="max-w-full mx-auto px-0 sm:px-6 lg:px-8">
         <div className="flex flex-row justify-between h-16">
-          <div className="flex-shrink-0 flex items-center p-4">
-            <a href='/doctor'><img src={WhiteLogo} alt="logo" className="w-auto h-9" /></a>
+          <div className="flex-shrink-0 flex items-center p-4 drop-shadow-xl">
+            <div className="flex items-center flex-shrink-0">
+              <div className="font-bold text-2xl cursor-pointer flex items-center font-poppins text-gray-700 drop-shadow-xl">
+              <span className="text-5xl text-lime-50 pr-2">
+                <ion-icon name="logo-ionic"></ion-icon>
+              </span>
+              <span className="text-4xl text-white font-roboto text-center">Healthiest</span>
+              </div>
+            </div>
           </div>
           <div className="flex flex-row items-center justify-end">
             <div className="relative flex flex-row items-center justify-end space-x-4">

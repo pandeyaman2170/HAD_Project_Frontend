@@ -1,13 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminShowCase = () => {
     const img = require("../components/images/admin_page_image-removebg-preview.png");
+
+    const navigate = useNavigate();
+    const addDoctor = () => {
+        navigate("/admin/addDoctor");
+      };
+    const updateDoctor = () => {
+    navigate("/admin/updateDoctor");
+    };
     return(
         <>
-        <div className="bg-orange-600 p-4 md:flex md:flex-row">
+        <div className="bg-orange-500 p-4 md:flex md:flex-row">
             <div className="md:flex-1 md:w-1/2 p-4 md:flex md:flex-col md:items-center md:justify-center">
                 <div className="flex flex-wrap justify-center">
-                    <button className="w-40 bg-orange-700 hover:bg-orange-800 text-white font-semibold py-2 px-4 rounded transform transition duration-300 hover:scale-105">
+                    <button className="w-40 bg-orange-700 hover:bg-orange-800 text-white font-semibold py-2 px-4 rounded transform transition duration-300 hover:scale-105"
+                       onClick={addDoctor}
+                    >
                         Add Doctor
                     </button>
                     <button className="w-40 bg-orange-700 hover:bg-orange-800 text-white font-semibold py-2 px-4 rounded mt-4 md:mt-0 md:ml-4 transform transition duration-300 hover:scale-105">

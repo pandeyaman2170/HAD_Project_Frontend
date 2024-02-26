@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faCalendarAlt, faHospital, faStethoscope, faFilePrescription } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faCalendarAlt, faHospital, faStethoscope, faFilePrescription, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const Stepper = () => {
   return (
@@ -16,13 +16,14 @@ const Stepper = () => {
             </div>
             <div className="mt-2 text-sm text-gray-600">Register/Login eSanjeevani</div>
           </div>
-          <div className="flex-1 h-px bg-gray-300"></div>
+              <FontAwesomeIcon icon={faArrowRight} className="text-gray-700 mx-2 size-20" />
           <div className="flex flex-col items-center">
             <div className="w-24 h-24 bg-orange-600 rounded-full flex items-center justify-center text-white">
               <FontAwesomeIcon icon={faCalendarAlt} style={{ fontSize: '1.5rem' }} />
             </div>
             <div className="mt-2 text-sm text-gray-600">Book Consultation</div>
           </div>
+          <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
           <div className="flex-1 h-px bg-gray-300"></div>
           <div className="flex flex-col items-center">
             <div className="w-24 h-24 bg-orange-600 rounded-full flex items-center justify-center text-white">

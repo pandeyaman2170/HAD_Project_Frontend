@@ -81,9 +81,9 @@
 //   return (
 //     <div className="w-full h-screen flex flex-col">
 //       <div className="flex flex-col items-center justify-center space-y-8 p-4">
-//         <p className="font-normal text-2xl font-bold text-blue-900">Upload Records</p>
+//         <p className="font-normal text-2xl font-bold text-orange-900">Upload Records</p>
 //         <label
-//           className="w-44 flex flex-col items-center px-4 py-4 bg-white text-blue-600 rounded-lg shadow-lg tracking-wide uppercase border border-blue-600 cursor-pointer hover:bg-blue-600 hover:text-white"
+//           className="w-44 flex flex-col items-center px-4 py-4 bg-white text-orange-600 rounded-lg shadow-lg tracking-wide uppercase border border-orange-600 cursor-pointer hover:bg-orange-600 hover:text-white"
 //         >
 //           <svg className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 //             <path
@@ -96,7 +96,7 @@
 //         </label>
 //       </div>
 //       <div className="p-4">
-//         <div className="flex flex-col border-2 rounded-lg border-blue-300 items-center justify-center">
+//         <div className="flex flex-col border-2 rounded-lg border-orange-300 items-center justify-center">
 //           <div className='flex flex-row items-center space-x-2 px-2'>
 //             <h2 className='py-2 text-md font-normal'>Uploaded Records</h2>
 //             <button>
@@ -197,7 +197,7 @@ const FileUpload = () => {
       <div className="flex flex-row items-center justify-center space-y-8 p-4">
         <p className="font-normal text-2xl font-bold text-orange-600">Upload Records</p>
         <label
-          className="w-44 flex flex-col items-center px-4 py-4 bg-white text-blue-600 rounded-lg shadow-lg tracking-wide uppercase border border-blue-600 cursor-pointer hover:bg-blue-600 hover:text-white"
+          className="w-44 flex flex-col items-center px-4 py-4 bg-white text-orange-600 rounded-lg shadow-lg tracking-wide uppercase border border-orange-600 cursor-pointer hover:bg-orange-600 hover:text-white"
         >
           <svg className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path
@@ -209,7 +209,7 @@ const FileUpload = () => {
         </label>
       </div>
       <div className="p-4">
-        <div className="flex flex-col border-2 rounded-lg border-blue-300 items-center justify-center">
+        <div className="flex flex-col border-2 rounded-lg border-orange-300 items-center justify-center">
           <div className='flex flex-row items-center space-x-2 px-2'>
             <h2 className='py-2 text-md font-normal'>Uploaded Records</h2>
           </div>

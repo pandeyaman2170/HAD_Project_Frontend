@@ -10,16 +10,23 @@ const NavBar = () => {
   };
   return (
     <div>
-      <nav className="bg-orange-600 fixed  w-full z-20 top-0 left-0 border-orange-700">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <div className="flex items-center flex-shrink-0">
-            <img src = "./images/whiteLogo.png" alt="logo" className="w-auto h-8"/>
+      <nav className="bg-orange-600 fixed  w-full z-20 top-0 left-0 border-orange-600">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
+          <div className="flex items-center flex-shrink-0 drop-shadow-xl">
+            <div className="font-bold text-2xl cursor-pointer flex items-center font-poppins text-gray-700">
+            <span className="text-5xl text-lime-50 pr-2">
+              <ion-icon name="logo-ionic"></ion-icon>
+            </span>
+            <span className="text-4xl text-white font-roboto text-center">Healthiest</span>
+            </div>
           </div>
+          
+
           <div className="flex justify-end">
             <div className="flex md:order-2">
               <button
                 type="button"
-                className="text-white bg-red-500 hover:bg-red-700 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 transform transition duration-300 hover:scale-110 "
+                className="text-white bg-orange-800 hover:bg-red-700 font-medium rounded-lg text-base px-4 py-2 text-center mr-3 md:mr-0 transform transition duration-300 hover:scale-110 "
                 onClick={getStarted}
               >
                 LogIn/SignUp
@@ -52,19 +59,19 @@ const NavBar = () => {
               id="navbar-sticky"
             >
               <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
-                <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
+                <li className="block py-2 pl-3 pr-4 hover:cursor-pointer text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
                   Home
                 </li>
-                <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
+                <li className="block py-2 pl-3 pr-4 hover:cursor-pointer text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
                   About
                 </li>
-                <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
+                <li className="block py-2 pl-3 pr-4 hover:cursor-pointer text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
                   Timmings
                 </li>
-                <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
+                <li className="block py-2 pl-3 pr-4 hover:cursor-pointer text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
                   FAQ
                 </li>
-                <li className="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
+                <li className="block py-2 pl-3 pr-4 hover:cursor-pointer text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
                   Contact
                 </li>
               </ul>
