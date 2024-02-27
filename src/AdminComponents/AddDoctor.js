@@ -3,8 +3,10 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import LoginNavbar from '../components/LoginNavbar';
 import AdminNavbar from './AdminNavbar';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { authentication } from "../firebase";
@@ -32,8 +34,8 @@ const AddDoctor = () => {
     const [validOTP, setValidOTP] = useState(false);
     const [isValid, setIsValid] = useState(false);
 
-    const [selectedDepartment, setSelectedDepartment] = useState("");
-    const [departments, setDepartments] = useState("");
+    // const [selectedDepartment, setSelectedDepartment] = useState("");
+    const [department, setDepartment] = useState("");
 
     const generateRecaptcha = () => {
         window.recaptchaVerifier = new RecaptchaVerifier(
@@ -80,24 +82,38 @@ const AddDoctor = () => {
             });
     };
 
-    const addPatient = async () => {
+    const addDoctor = async () => {
         const data = {
             title: title,
             firstName: firstName,
             lastName: lastName,
             gender: gender,
-            phoneNo: phoneNo,
+            mobileNumber: phoneNo,
+            department: department,
             email: email,
             dob: selectedDate,
-            addr: address,
+            registrationNumber: regNumber,
+            address: address,
             city: city,
+            state: state,
             pincode: pinCode,
         }
+        console.log("data as JSON:", JSON.stringify(data, null, 2));
 
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/patient/addPatient`, data)
+        await axios.post(`http://localhost:8000/admin/add_doctor`, data)
             .then((response) => {
                 console.log(response.data)
                 console.log("user added")
+                toast.success('User added successfully!', {
+                    position: 'top-right',
+                    autoClose: 3000, // Close the alert after 3 seconds
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                  });
+                //   const notify = () => toast(`Request sent to ${response.data} for room swapping`);
+                //   notify();
             })
             .catch((error) => {
                 console.log(error)
@@ -106,24 +122,21 @@ const AddDoctor = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        await addPatient()
-        navigate('/login')
+        await addDoctor();
+        // navigate('/admin');
     }
 
     return (
-        <div className='flex flex-col justify-center'>
+        <div className='flex flex-col justify-center bg-orange-200'>
             <AdminNavbar />
-            <div className='flex items-center justify-center h-screen mt-4'>
+            <div className='flex items-center justify-center h-screen mt-4 '>
                 <div className='w-full flex items-center justify-center'>
-                    <form onSubmit={handleSubmit} className='w-4/5 p-8 items-center justify-evenly h-4/5 font-normal border-2 border-gray-200 rounded-lg'>
+                    <form onSubmit={handleSubmit} className='w-4/5 p-8 items-center justify-evenly h-4/5 font-normal border-2 border-gray-500 rounded-lg bg-orange-100 drop-shadow-xl'>
                         <h1 className='mb-10 text-center text-4xl font-extrabold text-orange-900'>Add Doctor</h1>
                         <div className="grid md:grid-cols-3 md:gap-6 align-center justify-center">
                             <div className="relative z-0 w-full mb-6 group" >
-                                <select id="Title" className=" text-gray-900 text-sm rounded-lg border-2 border-gray-200 focus:ring-orange-500 focus:border-orange-500 block w-full p-2 bg-transparent" placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} required>
-                                    <option>Title</option>
-                                    <option>Mr.</option>
-                                    <option>Miss.</option>
-                                    <option>Mrs.</option>
+                                <select id="Title" className=" text-gray-900 text-sm rounded-lg border-2 border-gray-500 focus:ring-orange-500 focus:border-orange-500 block w-full p-2 bg-transparent" placeholder='Title' value={"Dr."} onChange={(e) => setTitle(e.target.value)} required>
+                                    <option>Dr.</option>
                                 </select>
                             </div>
                             <div className="relative z-0 w-full mb-6 group">
@@ -137,7 +150,7 @@ const AddDoctor = () => {
                         </div>
                         <div className='grid md:grid-cols-3 md:gap-6 align-center justify-center'>
                             <div className="relative z-0 w-full mb-6 group items-center justify-center" >
-                                <select id="Gender" className="border-2 border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2 bg-transparent" value={gender} onChange={(e) => setGender(e.target.value)} required>
+                                <select id="Gender" className="border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2 bg-transparent" value={gender} onChange={(e) => setGender(e.target.value)} required>
                                     <option>Gender</option>
                                     <option>Male</option>
                                     <option>Female</option>
@@ -199,7 +212,7 @@ const AddDoctor = () => {
                             )} */}
 
                             <div className="relative z-0 w-full mb-6 group" >
-                                <select id="departments" className=" text-gray-900 text-sm rounded-lg border-2 border-gray-200 focus:ring-orange-500 focus:border-orange-500 block w-full p-2 bg-transparent" placeholder='Departments' value={departments} onChange={(e) => setDepartments(e.target.value)} required>
+                                <select id="department" className=" text-gray-900 text-sm rounded-lg border-2 border-gray-500 focus:ring-orange-500 focus:border-orange-500 block w-full p-2 bg-transparent" placeholder='Department' value={department} onChange={(e) => setDepartment(e.target.value)} required>
                                     <option>Department</option>
                                     <option>Department of General Physician</option>
                                     <option>Department of Gynecology</option>
@@ -227,10 +240,11 @@ const AddDoctor = () => {
                                 <label for="Pincode" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pincode</label>
                             </div>
                         </div>
-                        <button type="submit" className="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800 transform transition duration-300 hover:scale-110">Register</button>
+                        <button type="submit" className="text-white bg-orange-600 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800 transform transition duration-300 hover:scale-110">Register</button>
                     </form>
                     <div id="recaptcha-container"></div>
                 </div>
+                <ToastContainer/>
             </div>
         </div>
     )

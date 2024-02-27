@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
+import axios from 'axios';
 import Stepper from "./StepperHomePage/Stepper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faHeart, faComment, faMoneyBillAlt } from "@fortawesome/free-regular-svg-icons";
@@ -16,9 +17,23 @@ const HomePage = () => {
     const doctorCount = 252; // Replace with actual number of doctors
     const consultationCount = 3964; // Replace with actual number of consultations
     const registeredCount = 1497; // Replace with actual number of registered people
-  const getStarted = () => {
-    navigate("/login");
-  };
+
+    // useEffect(()=>{
+    //   //   setUser(student);
+    //   loadRequest();
+        
+    //   },[]);
+    
+    // const loadRequest=async()=>{
+    //   // const id = user.student_id;
+    //   // console.log(id);
+    //   const result = await axios.get(`https://a105-103-156-19-229.ngrok-free.app/admin/get_doctor_list/2`);
+    //   console.log(result.data);
+    // }
+
+    const getStarted = () => {
+      navigate("/login");
+    };
 
   const navigate = useNavigate()
   const imgofmain = require('../components/images/doctor_main.jpg');

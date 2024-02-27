@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminNavbar from './AdminNavbar';
 import AdminShowCase from './AdminShowCase';
 import { Footer } from 'flowbite-react';
+import axios from 'axios';
 import HomePageFooter from '../components/HomePageFooter';
 
 const AdminDashboard = () => {
@@ -61,6 +62,17 @@ const AdminDashboard = () => {
     { id: 1, name: 'Cardiology' },
     { id: 2, name: 'Pediatrics' },
   ];
+
+  useEffect(()=>{
+      //   setUser(student);
+      loadRequest();
+        
+      },[]);
+    
+    const loadRequest=async()=>{
+      const result = await axios.get(`http://localhost:8000/admin/get_doctor_list/1`);
+      console.log(result.data);
+    }
 
   return (
     <div className='bg-blue-50 flex flex-col justify-evenly'>
