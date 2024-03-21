@@ -7,11 +7,11 @@ const PatientDashboard = () => {
   return (
     <div className='flex flex-col items-center justify-center min-h-screen bg-orange-200'>
       <PatientNavbar />
-      <div className='bg-orange-100 flex flex-row p-4 space-x-6 w-full justify-center'>
+      <div className='bg-orange-100 flex flex-row p-4 space-x-6 w-full justify-center drop-shadow-xl'>
         <div className='w-5/6 flex flex-row  justify-center'>
-          <div className='flex flex-col w-2/3 p-2'>
+          <div className='flex flex-col w-2/3 p-2 h-auto max-auto'>
             <ConsultNow />
-            <div className=' relative z-0 w-full group'>
+            <div className=' relative z-0 w-full group drop-shadow-xl'>
               <PatientHistory />
             </div>
           </div>

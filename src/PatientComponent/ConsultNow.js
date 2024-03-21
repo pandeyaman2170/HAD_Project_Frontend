@@ -69,8 +69,8 @@ const ConsultNow = () => {
   }, [count]);
 
   return (
-    <div className="flex flex-col items-center justify-center border-2 border-orange-600 rounded-lg p-8 space-y-8">
-      <p className="font-normal text-5xl text-blue-950">Welcome to Healthiest</p>
+    <div className="flex flex-col items-center justify-center border-2 border-orange-600 rounded-lg p-8 space-y-8 w-full">
+      <p className="font-normal text-5xl text-orange-950">Welcome to Healthiest</p>
       {/* Button to open modal */}
       {prevConsultation ?
         (<div className="flex flex-row justify-evenly  p-4 items-center w-full">
@@ -81,7 +81,7 @@ const ConsultNow = () => {
             Revoke Consultation
           </button>
           <button
-            className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
             onClick={OPD}
           >
            Waiting Room
@@ -105,7 +105,7 @@ const ConsultNow = () => {
 
             <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
               {/* Modal content */}
-              <div className="bg-blue-50 flex flex-col justify-center items-center">
+              <div className="bg-orange-50 flex flex-col justify-center items-center">
                 <div className="flex flex-row justify-between w-full p-4">
                   <h2 className="text-xl font-bold mb-2 font-normal ml-8">Apply for Consultation</h2>
                   <button onClick={handleClose}>
@@ -129,7 +129,7 @@ const ConsultNow = () => {
                 <div className="relative flex flex-col items-center w-[340px] rounded-lg">
                   <button
                     onClick={() => setIsOpen((prev) => !prev)}
-                    className="p-2 bg-blue-100 w-full flex items-center justify-between mb-4 font-normal text-lg rounded-lg border-4 border-gray-500 active:border-blue-100 duration-300"
+                    className="p-2 bg-orange-100 w-full flex items-center justify-between mb-4 font-normal text-lg rounded-lg border-4 border-gray-500 active:border-orange-100 duration-300"
                   >
                     {selectedDepartment ? selectedDepartment : "Select Department"}
                     <svg
@@ -153,7 +153,7 @@ const ConsultNow = () => {
                       {departments.map((department, i) => (
                         <div
                           key={i}
-                          className="flex w-full justify-between hover:bg-blue-100 p-2 cursor-pointer"
+                          className="flex w-full justify-between hover:bg-orange-100 p-2 cursor-pointer"
                           onClick={() => handleSelectDepartment(department.departmentName)}
                         >
                           <h3>{department.departmentName}</h3>
@@ -162,43 +162,7 @@ const ConsultNow = () => {
                     </div>
                   )}
                 </div>
-                {/* language button */}
-                <div className="relative flex flex-col items-center w-[340px] rounded-lg">
-                  <button
-                    onClick={() => setIsOpenLang((prev) => !prev)}
-                    className="p-2 bg-blue-100 w-full flex items-center justify-between font-normal text-lg rounded-lg border-4 border-transparent active:border-blue-100 duration-300"
-                  >
-                    {selectedLanguage ? selectedLanguage : "Select Language"}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </button>
-
-                  {isOpenLang && (
-                    <div className="bg-blue-50 mt-2 top-full flex flex-col items-start p-2 w-[340px] rounded-lg overflow-y-auto max-h-56">
-                      {languages.map((lang, i) => (
-                        <div
-                          key={i}
-                          className="flex w-full justify-between hover:bg-blue-100 p-2 cursor-pointer"
-                          onClick={() => handleSelectLanguage(lang)}
-                        >
-                          <h3>{lang}</h3>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                
                 <button
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2 mb-6"
                   onClick={submitHandler}
