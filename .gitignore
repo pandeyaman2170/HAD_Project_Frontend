@@ -1,0 +1,46 @@
+# Dependency directories
+/node_modules
+
+# Environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build directories
+/build
+
+# Cache and generated files
+/.cache
+/.eslintcache
+/.yarn
+/yarn-error.log
+/.pnp.*
+.pnp.js
+
+# Editor files
+*.swp
+*.swo
+.DS_Store
+*.log
+*.log.*
+npm-debug.log*
+
+# Dependency lock files
+package-lock.json
+yarn.lock
+
+# IDE configuration files
+/.vscode
+/.idea
+
+# Mac specific
+.DS_Store
+
+# Jest cache
+/jest-*
+
+# npm build directories
+/node_modules/
+/public/
+/npm-debug.log
