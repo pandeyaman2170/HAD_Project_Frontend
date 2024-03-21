@@ -97,6 +97,7 @@ const AddDoctor = () => {
             city: city,
             state: state,
             pincode: pinCode,
+            // role: "Doctor"
         }
         console.log("data as JSON:", JSON.stringify(data, null, 2));
 

@@ -6,61 +6,44 @@ import axios from 'axios';
 import HomePageFooter from '../components/HomePageFooter';
 
 const AdminDashboard = () => {
-  const doctors = [
-    { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
-    { id: 2, name: 'Dr. Jane Smith', specialty: 'Pediatrics' },
-    { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
-    { id: 2, name: 'Dr. Jane Smith', specialty: 'Pediatrics' },
-    { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
-    { id: 2, name: 'Dr. Jane Smith', specialty: 'Pediatrics' },
-    { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
-    { id: 2, name: 'Dr. Jane Smith', specialty: 'Pediatrics' },
-    { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
-    { id: 2, name: 'Dr. Jane Smith', specialty: 'Pediatrics' },
-    { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
-    { id: 2, name: 'Dr. Jane Smith', specialty: 'Pediatrics' },
-    { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
-    { id: 2, name: 'Dr. Jane Smith', specialty: 'Pediatrics' },
-    { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
-    { id: 2, name: 'Dr. Jane Smith', specialty: 'Pediatrics' },
-  ];
+  const [doctors, setDoctors] = useState([]);
 
   const patients = [
     { id: 1, name: 'Alice Johnson', condition: 'Fever' },
     { id: 2, name: 'Bob Williams', condition: 'Fracture' },
-    { id: 1, name: 'Alice Johnson', condition: 'Fever' },
-    { id: 2, name: 'Bob Williams', condition: 'Fracture' },
-    { id: 1, name: 'Alice Johnson', condition: 'Fever' },
-    { id: 2, name: 'Bob Williams', condition: 'Fracture' },
-    { id: 1, name: 'Alice Johnson', condition: 'Fever' },
-    { id: 2, name: 'Bob Williams', condition: 'Fracture' },
-    { id: 1, name: 'Alice Johnson', condition: 'Fever' },
-    { id: 2, name: 'Bob Williams', condition: 'Fracture' },
-    { id: 1, name: 'Alice Johnson', condition: 'Fever' },
-    { id: 2, name: 'Bob Williams', condition: 'Fracture' },
-    { id: 1, name: 'Alice Johnson', condition: 'Fever' },
-    { id: 2, name: 'Bob Williams', condition: 'Fracture' },
-    { id: 1, name: 'Alice Johnson', condition: 'Fever' },
-    { id: 2, name: 'Bob Williams', condition: 'Fracture' },
+    { id: 3, name: 'Alice Johnson', condition: 'Fever' },
+    { id: 4, name: 'Bob Williams', condition: 'Fracture' },
+    { id: 5, name: 'Alice Johnson', condition: 'Fever' },
+    { id: 6, name: 'Bob Williams', condition: 'Fracture' },
+    { id: 7, name: 'Alice Johnson', condition: 'Fever' },
+    { id: 8, name: 'Bob Williams', condition: 'Fracture' },
+    { id: 9, name: 'Alice Johnson', condition: 'Fever' },
+    { id: 10, name: 'Bob Williams', condition: 'Fracture' },
+    { id: 11, name: 'Alice Johnson', condition: 'Fever' },
+    { id: 12, name: 'Bob Williams', condition: 'Fracture' },
+    { id: 13, name: 'Alice Johnson', condition: 'Fever' },
+    { id: 14, name: 'Bob Williams', condition: 'Fracture' },
+    { id: 15, name: 'Alice Johnson', condition: 'Fever' },
+    { id: 16, name: 'Bob Williams', condition: 'Fracture' },
   ];
 
   const departments = [
     { id: 1, name: 'Cardiology' },
     { id: 2, name: 'Pediatrics' },
-    { id: 1, name: 'Cardiology' },
-    { id: 2, name: 'Pediatrics' },
-    { id: 1, name: 'Cardiology' },
-    { id: 2, name: 'Pediatrics' },
-    { id: 1, name: 'Cardiology' },
-    { id: 2, name: 'Pediatrics' },
-    { id: 1, name: 'Cardiology' },
-    { id: 2, name: 'Pediatrics' },
-    { id: 1, name: 'Cardiology' },
-    { id: 2, name: 'Pediatrics' },
-    { id: 1, name: 'Cardiology' },
-    { id: 2, name: 'Pediatrics' },
-    { id: 1, name: 'Cardiology' },
-    { id: 2, name: 'Pediatrics' },
+    { id: 3, name: 'Cardiology' },
+    { id: 4, name: 'Pediatrics' },
+    { id: 5, name: 'Cardiology' },
+    { id: 6, name: 'Pediatrics' },
+    { id: 7, name: 'Cardiology' },
+    { id: 8, name: 'Pediatrics' },
+    { id: 9, name: 'Cardiology' },
+    { id: 10, name: 'Pediatrics' },
+    { id: 11, name: 'Cardiology' },
+    { id: 12, name: 'Pediatrics' },
+    { id: 13, name: 'Cardiology' },
+    { id: 14, name: 'Pediatrics' },
+    { id: 15, name: 'Cardiology' },
+    { id: 16, name: 'Pediatrics' },
   ];
 
   useEffect(()=>{
@@ -70,7 +53,8 @@ const AdminDashboard = () => {
       },[]);
     
     const loadRequest=async()=>{
-      const result = await axios.get(`http://localhost:8000/admin/get_doctor_list/1`);
+      const result = await axios.get(`http://localhost:8000/admin/get_doctor_list`);
+      setDoctors(result.data);
       console.log(result.data);
     }
 
@@ -97,8 +81,8 @@ const AdminDashboard = () => {
                 {doctors.map(doctor => (
                   <tr key={doctor.id} className='p-8'>
                     <td>{doctor.id}</td>
-                    <td>{doctor.name}</td>
-                    <td>{doctor.specialty}</td>
+                    <td>{doctor.firstName+" "+doctor.lastName}</td>
+                    <td>{doctor.department.substr(22)}</td>
                   </tr>
                 ))}
               </tbody>
