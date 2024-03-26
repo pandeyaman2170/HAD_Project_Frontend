@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
+import './VideoCall.css';
 
 const VideoCall = () => {
   const [localStream, setLocalStream] = useState(null);
   const [remoteStream, setRemoteStream] = useState(null);
   const [peerConnection, setPeerConnection] = useState(null);
   const [isCaller, setIsCaller] = useState(true);
+  const [isMicMuted, setIsMicMuted] = useState(false); // Track mic mute state
+  const [isVideoMuted, setIsVideoMuted] = useState(false); // Track video mute state
+
   let count = 0;
 
   const constraints = {
@@ -34,7 +38,31 @@ const VideoCall = () => {
       throw error;
     }
   }
+      // Function to handle microphone mute/unmute
+    const handleMicMute = async () => {
+      if (localStream) {
+        const audioTracks = localStream.getAudioTracks();
+        if (audioTracks.length > 0) {
+          audioTracks[0].enabled = !isMicMuted;
+          setIsMicMuted(!isMicMuted); // Update state for button toggle
+        }
+      } else {
+        console.warn('No local stream available for microphone mute/unmute');
+      }
+    };
 
+    // Function to handle camera on/off
+    const handleVideoMute = async () => {
+      if (localStream) {
+        const videoTracks = localStream.getVideoTracks();
+        if (videoTracks.length > 0) {
+          videoTracks[0].enabled = !isVideoMuted;
+          setIsVideoMuted(!isVideoMuted); // Update state for button toggle
+        }
+      } else {
+        console.warn('No local stream available for camera on/off');
+      }
+    };
   useEffect(() => {
 
     let pc;
@@ -97,14 +125,6 @@ const VideoCall = () => {
             const [remoteStream] = event.streams;
             remoteVideo.srcObject = remoteStream;
         });
-        // pc.addEventListener('track', event => {
-        //   const remoteStream = event.streams[0];
-        //   event.streams.forEach(track => {
-        //     remoteStream.addTrack(track);
-        //   });
-        //   setRemoteStream(remoteStream);
-        // });
-        // stream.getTracks().forEach(track => pc.addTrack(track, stream));
 
         setPeerConnection(pc);
 
@@ -223,7 +243,20 @@ const VideoCall = () => {
       {/* Display remote video stream */}
       <video id="remoteStream" autoPlay playsInline controls={false}/>
       {/* Button to initiate call */}
-      <button onClick={handleCallButton}>Call</button>
+      <div className='call-control-buttons'>
+        <button onClick={handleCallButton} className='make-call'>Call</button>
+      </div>
+      <div className="call-control-buttons">
+        <button className="call-control-button mic-mute" onClick={handleMicMute}>
+          <i className={`fas fa-microphone ${isMicMuted ? 'muted' : ''}`}></i>
+        </button>
+        <button className="call-control-button video-mute" onClick={handleVideoMute}>
+          <i className={`fas fa-video ${isVideoMuted ? 'muted' : ''}`}></i>
+        </button>
+        <button className="call-control-button end-call">
+          <i className="fas fa-phone-slash"></i>
+        </button>
+      </div>
     </div>
   );
 };
