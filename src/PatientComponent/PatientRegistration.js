@@ -5,9 +5,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoginNavbar from '../components/LoginNavbar';
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { authentication } from "../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import firebaseConfig from '../firebase';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const PatientRegistration = () => {
 
@@ -37,7 +39,7 @@ const PatientRegistration = () => {
                     // reCAPTCHA solved, allow signInWithPhoneNumber.
                 },
             },
-            authentication
+            getAuth(initializeApp(firebaseConfig))
         );
     };
 
@@ -46,7 +48,7 @@ const PatientRegistration = () => {
         setSend(true);
         generateRecaptcha();
         let appVerifier = window.recaptchaVerifier;
-        signInWithPhoneNumber(authentication, phoneNo, appVerifier)
+        signInWithPhoneNumber(getAuth(initializeApp(firebaseConfig)), phoneNo, appVerifier)
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
             })

@@ -4,12 +4,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from './AdminNavbar';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { authentication } from "../firebase";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import firebaseConfig from '../firebase';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
@@ -46,7 +46,7 @@ const AddDoctor = () => {
                     // reCAPTCHA solved, allow signInWithPhoneNumber.
                 },
             },
-            authentication
+            getAuth(initializeApp(firebaseConfig))
         );
     };
 
@@ -55,7 +55,7 @@ const AddDoctor = () => {
         setSend(true);
         generateRecaptcha();
         let appVerifier = window.recaptchaVerifier;
-        signInWithPhoneNumber(authentication, phoneNo, appVerifier)
+        signInWithPhoneNumber(getAuth(initializeApp(firebaseConfig)), phoneNo, appVerifier)
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
             })

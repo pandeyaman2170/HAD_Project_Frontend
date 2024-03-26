@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { authentication } from "../firebase";
 import axios from 'axios';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import firebaseConfig from '../firebase';
 
 const PatientMedicalHistory = ({ patientDetail }) => {
     const phoneNo = patientDetail.phoneNo
@@ -70,7 +72,7 @@ const PatientMedicalHistory = ({ patientDetail }) => {
                     // reCAPTCHA solved, allow signInWithPhoneNumber.
                 },
             },
-            authentication
+            getAuth(initializeApp(firebaseConfig))
         )
     }
 
@@ -79,7 +81,7 @@ const PatientMedicalHistory = ({ patientDetail }) => {
         setShowVerifyOTP(true);
         generateRecaptcha();
         let appVerifier = window.recaptchaVerifier;
-        signInWithPhoneNumber(authentication, phoneNo, appVerifier)
+        signInWithPhoneNumber(getAuth(initializeApp(firebaseConfig)), phoneNo, appVerifier)
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult
                 alert("Otp sent to patient")

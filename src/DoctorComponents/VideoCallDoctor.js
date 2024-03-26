@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
 
-const VideoCall = () => {
+const VideoCallDoctor = () => {
   const [localStream, setLocalStream] = useState(null);
   const [remoteStream, setRemoteStream] = useState(null);
   const [peerConnection, setPeerConnection] = useState(null);
-  const [isCaller, setIsCaller] = useState(true);
+  const [isCaller, setIsCaller] = useState(false);
   let count = 0;
 
   const constraints = {
@@ -59,7 +59,7 @@ const VideoCall = () => {
         if (!firebase.apps.length) {
           firebase.initializeApp(firebaseConfig);
         }
-      }
+    }
 
       // Set up signaling channel with Firebase
       const database = firebase.database();
@@ -87,6 +87,7 @@ const VideoCall = () => {
             console.log("Connected");
           }
         });
+
         
         stream.getTracks().forEach(track => {
           pc.addTrack(track, stream);
@@ -119,11 +120,11 @@ const VideoCall = () => {
       signalingChannel.on('child_added', async snapshot => {
         let message = snapshot.val();
         if (message.recipient === "callee" && !isCaller && message.offer) {
+          count++;
+          if(count === 2) return;
           let offer = JSON.parse(message.offer);
           await handleOffer(offer);
         } else if (message.recipient === "caller" && isCaller && message.answer) {
-          count++;
-          if(count === 1) return;
           let answer = JSON.parse(message.answer);
           await handleAnswer(answer);
         } else if (message.iceCandidate) {
@@ -228,4 +229,4 @@ const VideoCall = () => {
   );
 };
 
-export default VideoCall;
+export default VideoCallDoctor;
