@@ -38,7 +38,7 @@ const PatientRegistration = () => {
           // reCAPTCHA solved, allow signInWithPhoneNumber.
         },
       },
-      authentication
+      getAuth(initializeApp(firebaseConfig))
     );
   };
   async function sendOTP(e) {
@@ -46,7 +46,7 @@ const PatientRegistration = () => {
     setSend(true);
     generateRecaptcha();
     let appVerifier = window.recaptchaVerifier;
-    signInWithPhoneNumber(authentication, phoneNo, appVerifier)
+    signInWithPhoneNumber(getAuth(initializeApp(firebaseConfig)), phoneNo, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
       })
