@@ -89,14 +89,14 @@ const VideoCall = () => {
 
       if (firebase.apps.length === 0) {
         const firebaseConfig = {
-          apiKey: "AIzaSyBbS8-RXtxdDTfPMUOFusZAsRO4nIUXPO8",
-          authDomain: "signalling-server-c301e.firebaseapp.com",
-          projectId: "signalling-server-c301e",
-          storageBucket: "signalling-server-c301e.appspot.com",
-          messagingSenderId: "687152087527",
-          appId: "1:687152087527:web:972096d59a032d12757d42",
-          measurementId: "G-H4WESFH17W",
-          databaseURL: "https://signalling-server-c301e-default-rtdb.asia-southeast1.firebasedatabase.app",
+          apiKey: "AIzaSyAKNfKu9cb6TSSGOZ1d4TwNCVUdJn6hmak",
+          authDomain: "webdemo-e52ea.firebaseapp.com",
+          projectId: "webdemo-e52ea",
+          storageBucket: "webdemo-e52ea.appspot.com",
+          messagingSenderId: "747216449715",
+          appId: "1:747216449715:web:89a406e9c2ee2af0a740c6",
+          measurementId: "G-3HKGTKV8XZ",
+          databaseURL: "https://webdemo-e52ea-default-rtdb.asia-southeast1.firebasedatabase.app/",
         };
         if (!firebase.apps.length) {
           firebase.initializeApp(firebaseConfig);
@@ -260,6 +260,29 @@ const VideoCall = () => {
     }
   };
 
+  const handleEndCall = () => {
+    // Close peer connection and stop local and remote streams
+    if (peerConnection) {
+      peerConnection.close();
+      setPeerConnection(null);
+    }
+    if (localStream) {
+      localStream.getTracks().forEach(track => track.stop());
+      setLocalStream(null);
+    }
+    if (remoteStream) {
+      remoteStream.getTracks().forEach(track => track.stop());
+      setRemoteStream(null);
+    }
+
+    // Set signaling value to null in Firebase Realtime Database
+    firebase.database().ref('signalling').set(null);
+
+    // Redirect to '/patient' page
+    window.location.href = '/patient';
+  };
+
+
   return (
     <div className="video-call">
       <div className="video-container">
@@ -277,7 +300,7 @@ const VideoCall = () => {
         <button className="call-control-button video-mute" onClick={handleVideoMute}>
           <i className={`fas fa-video ${isVideoMuted ? 'muted' : ''}`}></i>
         </button>
-        <button className="call-control-button end-call">
+        <button className="call-control-button end-call" onClick={handleEndCall}>
           <i className="fas fa-phone-slash"></i>
         </button>
       </div>
