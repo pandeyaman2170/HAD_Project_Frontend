@@ -87,7 +87,7 @@ function Otp(props) {
       .get(`http://localhost:8090/login/${phoneNumber}/doctor`)
       .then((response) => {
         setIsValid(response.data.isValid);
-        setUserId(respo);
+        setUserId(response);
       })
       .catch((error) => {
         console.log(error);
