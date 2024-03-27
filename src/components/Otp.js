@@ -10,6 +10,7 @@ import axios from "axios";
 
 function Otp(props) {
   const navigate = useNavigate();
+  let jwtToken;
   const user = props.value;
   const [phoneNumber, setPhoneNumber] = useState();
   const [otp, setOtp] = useState("");
@@ -53,21 +54,29 @@ function Otp(props) {
     e.preventDefault();
     let confirmationResult = window.confirmationResult;
     confirmationResult
-      .confirm(otp)
-      .then((result) => {
-        const userI = result.user;
-        setValidOTP(true);
-        if (props.value == 1) {
-          fetchPtDetail();
-          navigate(`/patient`);
-        } else if (props.value == 2) {
-          fetchDrDetail();
-          navigate(`/doctor`);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .confirm(otp)
+        .then((result) => {
+          const userI = result.user;
+          axios.post('http://localhost:8090/authenticate',{
+            username: phoneNumber,
+            password: phoneNumber
+          }).then((response) => { // Added missing closing parenthesis here
+            jwtToken = response.data.jwtToken;
+            axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
+            localStorage.setItem("jwtToken", response.data.jwtToken);
+            setValidOTP(true);
+            if (props.value === 1) {
+              fetchPtDetail();
+              navigate(`/patient`);
+            } else if (props.value === 2) {
+              fetchDrDetail();
+              navigate(`/doctor`);
+            }
+          })
+              .catch((error) => {
+                console.log(error);
+              });
+        }); // Added missing closing parenthesis here
   };
 
   const verifyPatient = () => {
@@ -97,7 +106,7 @@ function Otp(props) {
   const fetchPtDetail = async () => {
     await axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/patient/getPatientByPhoneNumber/${phoneNumber}`
+        `http://localhost:8090/patient/getPatientByPhoneNumber/${phoneNumber}`
       )
       .then((response) => {
         localStorage.setItem("patientDetails", JSON.stringify(response.data));
@@ -110,7 +119,7 @@ function Otp(props) {
   const fetchDrDetail = async () => {
     await axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/doctor/getDoctorByPhoneNumber/${phoneNumber}`
+        `https://localhost:8090/doctor/getDoctorByPhoneNumber/${phoneNumber}`
       )
       .then((response) => {
         localStorage.setItem("doctorDetails", JSON.stringify(response.data));

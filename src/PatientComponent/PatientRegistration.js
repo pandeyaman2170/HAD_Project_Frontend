@@ -101,11 +101,9 @@ const PatientRegistration = () => {
         email: email,
         gender: gender,
         phone: phoneNo,
-
         address: address,
         city: city,
-        pincode: pinCode,
-        doctor: null,
+        pincode: pinCode
       },
       otpFlag: true,
     };
@@ -113,7 +111,7 @@ const PatientRegistration = () => {
     console.log("Data being sent to server:", data);
 
     await axios
-      .post(`http://localhost:8090/patient/register-patient`, data)
+    .post(`http://localhost:8090/patient/register-patient`, data)
       .then((response) => {
         console.log(response.data);
         console.log("user added");
@@ -203,8 +201,8 @@ const PatientRegistration = () => {
                   required
                 >
                   <option>Gender</option>
-                  <option>Male</option>
-                  <option>Female</option>
+                  <option>M</option>
+                  <option>F</option>
                 </select>
               </div>
               <div className="relative w-full mb-6 group">
