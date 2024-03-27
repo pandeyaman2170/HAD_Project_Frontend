@@ -2,8 +2,7 @@ import React from 'react';
 import DoctorNavbar from './DoctorNavbar';
 import Prescription from './Prescription';
 import { useLocation } from 'react-router-dom';
-import VideoCall from '../PatientComponent/VideoCall';
-
+import VideoCallDoctor from './VideoCallDoctor';
 const DoctorConsultationPage = () => {
   const { state } = useLocation();
   const appId = 1;
@@ -19,7 +18,7 @@ const DoctorConsultationPage = () => {
         
         {/* Video call on the right */}
         <div className='p-0' style={{ gridColumn: "3 / span 3" }}>
-          <VideoCall />
+          <VideoCallDoctor />
         </div>
       </div>
     </div>

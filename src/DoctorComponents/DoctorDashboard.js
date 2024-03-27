@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import DoctorNavbar from './DoctorNavbar';
 import PatientQueue from './PatientQueue';
-import HomePageFooter from "../components/HomePageFooter";
 
 // TodayConsultation component
 const TodayConsultation = () => {
