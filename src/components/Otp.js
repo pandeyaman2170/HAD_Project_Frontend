@@ -63,7 +63,7 @@ function Otp(props) {
           }).then((response) => { // Added missing closing parenthesis here
             jwtToken = response.data.jwtToken;
             axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
-            localStorage.setItem("jwtToken", response.data.jwtToken);
+              localStorage.setItem("jwtToken", response.data.jwtToken);
             setValidOTP(true);
             if (props.value === 1) {
               fetchPtDetail();
@@ -109,6 +109,7 @@ function Otp(props) {
         `http://localhost:8090/patient/getPatientByPhoneNumber/${phoneNumber}`
       )
       .then((response) => {
+        console.log("ccccccc"+response.data)
         localStorage.setItem("patientDetails", JSON.stringify(response.data));
       })
       .catch((error) => {
