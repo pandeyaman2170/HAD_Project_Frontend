@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import firebaseConfig from "../firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { authentication } from "../firebase";
 import axios from "axios";
 
 function Otp(props) {
@@ -25,7 +27,7 @@ function Otp(props) {
           // reCAPTCHA solved, allow signInWithPhoneNumber.
         },
       },
-      authentication
+      getAuth(initializeApp(firebaseConfig))
     );
   };
 
@@ -35,7 +37,7 @@ function Otp(props) {
       setSend(true);
       generateRecaptcha();
       let appVerifier = window.recaptchaVerifier;
-      signInWithPhoneNumber(authentication, phoneNumber, appVerifier)
+      signInWithPhoneNumber(getAuth(initializeApp(firebaseConfig)), phoneNumber, appVerifier)
         .then((confirmationResult) => {
           window.confirmationResult = confirmationResult;
         })

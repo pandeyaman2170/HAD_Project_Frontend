@@ -1,0 +1,55 @@
+.make-call{
+  background-color: #28a745; /* Green color for call action */
+  color: white;
+  padding: 15px 30px; /* Adjust padding as needed */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s
+}
+.make-call:hover {
+  background-color: #218c3f; /* Darker green on hover */
+  transform: scale(1.02); /* Slight scale up on hover */
+}
+.call-control-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 150px; /* Adjust width as needed */
+    margin: 10px auto; /* Center the buttons horizontally */
+  }
+  .video-container {
+    position: relative;
+    display: flex;
+  }
+
+  .call-control-button {
+    background-color:turquoise;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    color: #333;
+    font-size: 1.2rem;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .call-control-button:hover {
+    background-color: #eee;
+  }
+  
+  .mic-mute i {
+    color: #f00; /* Red for microphone mute */
+  }
+  
+  .video-mute i {
+    color: #0099ff; /* Blue for video mute */
+  }
+  
+  .end-call i {
+    color: #f50; /* Orange for end call */
+  }
+  
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css");
+  

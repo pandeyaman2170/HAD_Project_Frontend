@@ -5,9 +5,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import LoginNavbar from "../components/LoginNavbar";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { authentication } from "../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import firebaseConfig from '../firebase';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const PatientRegistration = () => {
   const navigate = useNavigate();
@@ -39,7 +41,6 @@ const PatientRegistration = () => {
       authentication
     );
   };
-
   async function sendOTP(e) {
     e.preventDefault();
     setSend(true);
@@ -90,7 +91,6 @@ const PatientRegistration = () => {
     //   },
     //   otpFlag: true,
     // };
-
     const data = {
       user: {
         title: title,
@@ -128,7 +128,6 @@ const PatientRegistration = () => {
     await addPatient();
     navigate("/login");
   };
-
   return (
     <div className="flex flex-col justify-center">
       <LoginNavbar />
