@@ -1,52 +1,56 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 import Select from "react-select";
+import { useNavigate } from 'react-router-dom';
 import PatientNavbar from './PatientNavbar'
 
 const PatientUpdateProfile = () => {
-  const dummyPatientDetails = {
-    title: "Mr.",
-    firstName: "John",
-    lastName: "Doe",
-    gender: "Male",
-    dob: "1990-01-01", // Format: YYYY-MM-DD
-    email: "johndoe@example.com",
-    phoneNumber: "1234567890",
-    addr: "123 Street Name",
-    city: "New York",
-    pincode: "10001",
-  };
+  const navigate = useNavigate()
+  const patientDetails = JSON.parse(localStorage.getItem("patientDetails"))
+  const patientId = patientDetails.patientId
+  const [title, setTitle] = useState(patientDetails.title)
+  const [firstName, setFirstName] = useState(patientDetails.firstName)
+  const [lastName, setLastName] = useState(patientDetails.lastName)
+  const [gender, setGender] = useState(patientDetails.gender)
+  const [selectedDate, setSelectedDate] = useState(new Date(patientDetails.dob))
+  const [email, setEmail] = useState(patientDetails.email)
+  const [phoneNo, setPhoneNo] = useState(patientDetails.phoneNo)
+  const [address, setAddress] = useState(patientDetails.addr)
+  const [city, setCity] = useState(patientDetails.city)
+  const [pinCode, setPinCode] = useState(patientDetails.pincode)
 
-  // Use dummy data if no patientDetails found in localStorage
-  const patientDetailsJSON = localStorage.getItem("patientDetails");
-  const patientDetails = patientDetailsJSON ? JSON.parse(patientDetailsJSON) : dummyPatientDetails;
 
-  const defaultSelectedDate = patientDetails.dob ? new Date(patientDetails.dob) : new Date();
-  const [selectedDate, setSelectedDate] = useState(defaultSelectedDate);
-  const [title, setTitle] = useState(patientDetails.title || "");
-  const [firstName, setFirstName] = useState(patientDetails.firstName || "");
-  const [lastName, setLastName] = useState(patientDetails.lastName || "");
-  const [gender, setGender] = useState(patientDetails.gender || "");
-  const [email, setEmail] = useState(patientDetails.email || "");
-  const [phoneNo, setPhoneNo] = useState(patientDetails.phoneNumber || "");
-  const [address, setAddress] = useState(patientDetails.addr || "");
-  const [city, setCity] = useState(patientDetails.city || "");
-  const [pinCode, setPinCode] = useState(patientDetails.pincode || "");
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Dummy data fetch
-    const response = { data: "Dummy Data" };
-    localStorage.setItem("patientDetails", JSON.stringify(response.data));
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const data = {
+      title: title,
+      firstName: firstName,
+      lastName: lastName,
+      gender: gender,
+      phoneNo: phoneNo,
+      email: email,
+      dob: selectedDate,
+      addr: address,
+      city: city,
+      pincode: pinCode,
+    }
+    const jwtToken=localStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+    await axios.put(`http://localhost:8090/patient/updatePatient/${patientId}`, data)
+        .then((response) => {
+          // console.log(JSON.stringify(response.data));
+          localStorage.setItem("patientDetails", JSON.stringify(response.data));
+          navigate("/patient");
+        })
+        .catch((error) => {
+          console.log(error)
+        })
   }
 
-  const customStyles = {
-    control: (provided) => ({
-      ...provided,
-      borderRadius: "0.5rem",
-    }),
-  };
+
+
   const profilePhoto = require('../components/images/patient_profile_image.jpg');
   return (
     <div className='bg-orange-100'>
@@ -83,9 +87,9 @@ const PatientUpdateProfile = () => {
               <div className="relative z-0 w-full mb-6 group">
                 <select id="Gender" className="bg-transparent text-sm rounded-lg border-2 border-gray-200 focus:ring-orange-500 focus:border-orange-500 block w-full p-2 bg-white" value={gender} onChange={(e) => setGender(e.target.value)} required>
                   <option>{gender}</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Other</option>
+                  <option>M</option>
+                  <option>F</option>
+                  <option>O</option>
                 </select>
               </div>
               <div className="relative z-0 w-full mb-6 group">
@@ -109,7 +113,7 @@ const PatientUpdateProfile = () => {
                 <label htmlFor="PinCode" className="peer-focus:font-medium absolute text-sm text-zinc-800 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pin Code</label>
               </div>
             </div>
-            <button type="submit" className="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-500 dark:hover:bg-orange-700 dark:focus:ring-orange-800 mx-auto block">Submit</button>
+            <button type="submit" className="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-500 dark:hover:bg-orange-700 dark:focus:ring-orange-800 mx-auto block" onClick={handleSubmit} >Submit</button>
           </form>
         </div>
       </div>

@@ -4,19 +4,16 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 
 const PatientNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [patient, setPatient] = useState({
-    firstName: "John",
-    lastName: "Doe"
-  });
+  const [patient, setPatient] = useState("");
 
   const logOut = () => {
     localStorage.removeItem("patientDetails");
-    localStorage.removeItem("ptAppointmentId");
+    localStorage.removeItem("jwtToken")
     window.location.href = "/";
   }
 
   useEffect(() => {
-    setPatient(JSON.parse(localStorage.getItem("patientDetails")) || { firstName: "John", lastName: "Doe" });
+    setPatient(JSON.parse(localStorage.getItem("patientDetails")) );
   }, []);
 
   return (
