@@ -19,7 +19,11 @@
     width: 150px; /* Adjust width as needed */
     margin: 10px auto; /* Center the buttons horizontally */
   }
-  
+  .video-container {
+    position: relative;
+    display: flex;
+  }
+
   .call-control-button {
     background-color:turquoise;
     border: none;

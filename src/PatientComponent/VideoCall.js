@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef} from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
 import './VideoCall.css';
@@ -10,14 +10,28 @@ const VideoCall = () => {
   const [isCaller, setIsCaller] = useState(true);
   const [isMicMuted, setIsMicMuted] = useState(false); // Track mic mute state
   const [isVideoMuted, setIsVideoMuted] = useState(false); // Track video mute state
-
+  const localVideoRef = useRef(null);
+  const remoteVideoRef = useRef(null);
   let count = 0;
 
   const constraints = {
     'video': true,
     'audio': true
   }
+  const handleDragStart = (event, videoRef) => {
+    event.dataTransfer.setData('text/plain', videoRef.current.id);
+  };
 
+  const handleDrop = (event, targetRef) => {
+    const droppedId = event.dataTransfer.getData('text/plain');
+    if (droppedId === 'localStream') {
+      targetRef.current.style.zIndex = 2; // Set local stream on top
+      localVideoRef.current.style.zIndex = 1;
+    } else if (droppedId === 'remoteStream') {
+      targetRef.current.style.zIndex = 2; // Set remote stream on top
+      remoteVideoRef.current.style.zIndex = 1;
+    }
+  };
   navigator.mediaDevices.getUserMedia(constraints)
     .then(stream => {
         // console.log('Got MediaStream:', stream);
@@ -210,6 +224,16 @@ const VideoCall = () => {
         console.error('Error playing remote stream:', error);
       });
     }
+    if (localVideoRef.current) {
+      localVideoRef.current.addEventListener('dragstart', (event) => handleDragStart(event, localVideoRef));
+    }
+    if (remoteVideoRef.current) {
+      remoteVideoRef.current.addEventListener('dragstart', (event) => handleDragStart(event, remoteVideoRef));
+    }
+
+    const container = document.querySelector('.video-container');
+    container.addEventListener('dragover', (event) => event.preventDefault()); // Prevent default drop behavior
+    container.addEventListener('drop', (event) => handleDrop(event, remoteVideoRef));
 
     return () => {
       // Cleanup code if needed
@@ -237,11 +261,11 @@ const VideoCall = () => {
   };
 
   return (
-    <div>
-      {/* Display local video stream */}
-      <video id="localStream" autoPlay playsInline controls={false}/>
-      {/* Display remote video stream */}
-      <video id="remoteStream" autoPlay playsInline controls={false}/>
+    <div className="video-call">
+      <div className="video-container">
+        <video id="localStream" ref={localVideoRef} autoPlay playsInline controls={false} draggable onDragStart={(e) => handleDragStart(e, localVideoRef)} />
+        <video id="remoteStream" ref={remoteVideoRef} autoPlay playsInline controls={false} draggable onDragStart={(e) => handleDragStart(e, remoteVideoRef)} />
+      </div>
       {/* Button to initiate call */}
       <div className='call-control-buttons'>
         <button onClick={handleCallButton} className='make-call'>Call</button>
