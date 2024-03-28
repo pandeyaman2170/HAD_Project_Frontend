@@ -118,13 +118,13 @@ const PatientHistory = () => {
         <tbody className="font-normal text-md text-center">
         {currentItems.length > 0 ? (
             currentItems.map((p) => (
-                <tr key={p.prescriptionId} className='bg-blue-50 border-2'>
+                <tr key={p.prescriptionId} className='index % 2 === 0 ? "bg-orange-200" : "bg-grey'>
                   <td>{p.consultationDate}</td>
                   <td>{p.observation}</td>
                   <td>{p.remark}</td>
                   <td className='p-2'>
                     <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded"
+                        className="bg-orange-600 hover:bg-orange-600 text-white py-2 px-2 rounded-lg"
                         onClick={() =>
                             downloadPDF(p.prescriptionId, p.consultationDate)
                         }

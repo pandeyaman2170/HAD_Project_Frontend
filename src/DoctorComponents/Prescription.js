@@ -10,83 +10,51 @@ import { useNavigate } from 'react-router-dom';
 import axios  from 'axios';
 
 const Prescription = () => {
-    const navigate = useNavigate();
-    const [observation, setObservation] = useState("");
-    const [advice, setAdvice] = useState("");
+    const navigate = useNavigate()
+    const patientId = localStorage.getItem("DrPatientId");
+    const doctorDetails = JSON.parse(localStorage.getItem("doctorDetails"))
+    const [observation, setObservation] = useState("")
+    const [advice, setAdvice] = useState("")
     const [allMedicineData, setAllMedicineData] = useState([]);
     const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
-    const [showHistory, setShowHistory] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [isRotating, setIsRotating] = useState(false);
-    const [ptHistory, setPtHistory] = useState(false);
-    const [fileList, setFileList] = useState([]);
+    const [showHistory, setShowHistory] = useState(false)
+    const [selectedDate, setSelectedDate] = useState(null)
+    const [isRotating, setIsRotating] = useState(false)
+    const [ptHistory, setPtHistory] = useState(false)
+    const [fileList, setFileList] = useState([])
     const [patientDetail, setPatientDetail] = useState([
         {
             patientId: 1,
-            firstName: "Rajnish",
-            lastName: "Kumar",
-            dob: "10-10-1999",
+            firstName: "",
+            lastName: "",
+            dob: "",
         },
     ]);
     const [clickedButton, setClickedButton] = useState(false);
-    const [inputFeilds, setInputFeilds] = useState([{ medicine: "", dosage: "" }]);
 
-    // Define ptAge function
-    const calculateAge = (dateOfBirth) => {
-        const dob = new Date(dateOfBirth);
-        const today = new Date();
-        let age = today.getFullYear() - dob.getFullYear();
-        return age;
-    };
+    const [inputFeilds, setInputFeilds] = useState([
+        { medicine: "", dosage: "" },
+    ]);
 
-    const ptAge = patientDetail[0]?.dob ? calculateAge(patientDetail[0].dob) : 0;
+    const medicineString = inputFeilds
+        .map((item) => {
+            return `${item.medicine}-->${item.dosage}`;
+        })
 
-    // Define handleFormChange function
-    const handleFormChange = (index, event) => {
-        let data = [...inputFeilds];
-        data[index][event.target.name] = event.target.value;
-        setInputFeilds(data);
-    };
-
-    // Define removeFields function
-    const removeFields = (index) => {
-        let data = [...inputFeilds];
-        data.splice(index, 1);
-        setInputFeilds(data);
-    };
-
-    // Define addFields function
-    const addFields = (event) => {
-        event.preventDefault();
-        let newfield = { medicine: "", dosage: "" };
-        setInputFeilds([...inputFeilds, newfield]);
-    };
-
-    // Define handleToggle function
-    const handleToggle = () => {
-        setIsDatePickerVisible(!isDatePickerVisible);
-    };
-
-    // Define handleHistory function
-    const handleHistory = () => {
-        setShowHistory(!showHistory);
-    };
-
-    // Define submitHandler function
-    const submitHandler = async (event) => {
-        setClickedButton(true);
-        event.preventDefault();
-        // Rest of the function implementation remains the same
-    };
     function timeout(delay) {
-        return new Promise(res => setTimeout(res, delay));
+        return new Promise(res => setTimeout(res, delay))
+    }
+    const handleClick = async () => {
+        setIsRotating(true)
+        await fetchPtHistory()
+        await timeout(1000)
+        handleAnimationEnd()
     }
 
     const handleAnimationEnd = () => {
-        setIsRotating(false);
-    };
+        setIsRotating(false)
+    }
 
-    // Remove the function to fetch all medicines from Axios
     const getAllMedicine = async () => {
         await axios
             .get("https://rxnav.nlm.nih.gov/REST/displaynames.json")
@@ -98,32 +66,114 @@ const Prescription = () => {
             });
     };
 
-    // Remove the function to fetch patient detail from Axios
     const fetchPatientDetail = async () => {
-        // Mock patient detail
-        const mockPatientDetail = {
-            patientId: 1,
-            firstName: "John",
-            lastName: "Doe",
-            dob: "01-01-1980",
-            gender: "Male",
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        await axios
+            .get(`http://localhost:8090/patient/getPatientById/${patientId}`)
+            .then((response) => {
+                console.log("patientDetail", response.data);
+                setPatientDetail(response.data);
+                console.log("patients", patientDetail);
+            })
+            .catch((error) => {
+                console.log("error:", error);
+            });
+    };
+    const handleFormChange = (index, event) => {
+        let data = [...inputFeilds];
+        data[index][event.target.name] = event.target.value;
+        setInputFeilds(data);
+    };
+
+    const addFields = (event) => {
+        event.preventDefault();
+        let newfield = { medicine: "", dosage: "" };
+        setInputFeilds([...inputFeilds, newfield]);
+    };
+
+
+    const removeFields = (index) => {
+        let data = [...inputFeilds];
+        data.splice(index, 1);
+        setInputFeilds(data);
+    };
+
+    const handleToggle = () => {
+        setIsDatePickerVisible(!isDatePickerVisible)
+    };
+
+    const handleHistory = () => {
+        setShowHistory(!showHistory)
+    }
+
+    const calculateAge = (dateOfBirth) => {
+        const dob = new Date(dateOfBirth);
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        return age;
+    }
+
+    const ptAge = calculateAge(patientDetail.dob)
+
+    const submitHandler = async (event) => {
+        setClickedButton(true)
+        event.preventDefault();
+        const data = {
+            consultationDate: new Date(),
+            observation: observation,
+            medicine: medicineString,
+            remark: advice,
+            doctorId: doctorDetails.doctorId,
+            patientName: patientDetail.firstName,
+            patientId: patientId,
+            followUpDate: selectedDate,
         };
-        setPatientDetail(mockPatientDetail);
-    };
+        // console.log("form updated data", data);
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        await axios
+            .post(`http://localhost:8090/prescription/addPrescription`, data)
+            .then((response) => {
+                // console.log("inside post prescription api");
+                // console.log(response.data);
+                // deletePtHistory()
+                navigate(`/doctor`);
+            })
+            .catch((error) => {
+                console.log("error", error);
+            });
+    }
 
-    // Remove the function to fetch patient history from Axios
     const fetchPtHistory = async () => {
-        // Mock file list for patient history
-        const mockFileList = ["file1.pdf", "file2.pdf", "file3.pdf"];
-        setFileList(mockFileList);
-        setPtHistory(true);
-    };
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        await axios.get(`http://localhost:8090/aws/getAllFilesDoctor/${patientId}`)
+            .then((response) => {
+                console.log("fetched files", response.data)
+                setFileList(response.data)
+                setPtHistory(true)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
-    // Modify the view handler to open a new tab with mock data
-    const handleViewClick = (fileKey) => {
-        // Mock action to open a new tab with file
-        window.open(`https://example.com/${fileKey}`);
-    };
+    const handleViewClick = async (fileKey) => {
+        console.log(`File key:`,fileKey);
+        const jwtToken=localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"]=`Bearer ${jwtToken}`
+        await axios.get(`http://localhost:8090/aws/downloadFile/${fileKey}`, { responseType: 'arraybuffer' })
+            .then(response => {
+                console.log("fileeeee")
+                const file = new Blob([response.data], { type: 'application/pdf' });
+                const fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
     useEffect(() => {
         fetchPatientDetail();
@@ -140,6 +190,118 @@ const Prescription = () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
     }, [clickedButton]);
+
+
+
+                // // Define ptAge function
+    // const calculateAge = (dateOfBirth) => {
+    //     const dob = new Date(dateOfBirth);
+    //     const today = new Date();
+    //     let age = today.getFullYear() - dob.getFullYear();
+    //     return age;
+    // };
+    //
+    // const ptAge = patientDetail[0]?.dob ? calculateAge(patientDetail[0].dob) : 0;
+    //
+    // // Define handleFormChange function
+    // const handleFormChange = (index, event) => {
+    //     let data = [...inputFeilds];
+    //     data[index][event.target.name] = event.target.value;
+    //     setInputFeilds(data);
+    // };
+    //
+    // // Define removeFields function
+    // const removeFields = (index) => {
+    //     let data = [...inputFeilds];
+    //     data.splice(index, 1);
+    //     setInputFeilds(data);
+    // };
+    //
+    // // Define addFields function
+    // const addFields = (event) => {
+    //     event.preventDefault();
+    //     let newfield = { medicine: "", dosage: "" };
+    //     setInputFeilds([...inputFeilds, newfield]);
+    // };
+    //
+    // // Define handleToggle function
+    // const handleToggle = () => {
+    //     setIsDatePickerVisible(!isDatePickerVisible);
+    // };
+    //
+    // // Define handleHistory function
+    // const handleHistory = () => {
+    //     setShowHistory(!showHistory);
+    // };
+    //
+    // // Define submitHandler function
+    // const submitHandler = async (event) => {
+    //     setClickedButton(true);
+    //     event.preventDefault();
+    //     // Rest of the function implementation remains the same
+    // };
+    // function timeout(delay) {
+    //     return new Promise(res => setTimeout(res, delay));
+    // }
+    //
+    // const handleAnimationEnd = () => {
+    //     setIsRotating(false);
+    // };
+    //
+    // // Remove the function to fetch all medicines from Axios
+    // const getAllMedicine = async () => {
+    //     await axios
+    //         .get("https://rxnav.nlm.nih.gov/REST/displaynames.json")
+    //         .then((response) => {
+    //             setAllMedicineData(response.data.displayTermsList.term);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // };
+    //
+    // // Remove the function to fetch patient detail from Axios
+    // const fetchPatientDetail = async () => {
+    //     // Mock patient detail
+    //     const mockPatientDetail = {
+    //         patientId: 1,
+    //         firstName: "John",
+    //         lastName: "Doe",
+    //         dob: "01-01-1980",
+    //         gender: "Male",
+    //     };
+    //     setPatientDetail(mockPatientDetail);
+    // };
+    //
+    // // Remove the function to fetch patient history from Axios
+    // const fetchPtHistory = async () => {
+    //     // Mock file list for patient history
+    //     const mockFileList = ["file1.pdf", "file2.pdf", "file3.pdf"];
+    //     setFileList(mockFileList);
+    //     setPtHistory(true);
+    // };
+    //
+    // // Modify the view handler to open a new tab with mock data
+    // const handleViewClick = (fileKey) => {
+    //     // Mock action to open a new tab with file
+    //     window.open(`https://example.com/${fileKey}`);
+    // };
+    //
+    // useEffect(() => {
+    //     fetchPatientDetail();
+    //     getAllMedicine();
+    //
+    //     const handleBeforeUnload = (event) => {
+    //         if (!clickedButton) {
+    //             event.preventDefault();
+    //             event.returnValue = '';
+    //         }
+    //     };
+    //     window.addEventListener('beforeunload', handleBeforeUnload);
+    //     return () => {
+    //         window.removeEventListener('beforeunload', handleBeforeUnload);
+    //     };
+    // }, [clickedButton]);
 
     return (
         <div className='w-full p-8 items-center justify-center bg-orange-50 border-l-4 border-b-4 shadow-lg border-orange-600'>
@@ -265,10 +427,37 @@ const Prescription = () => {
                     </div>
                 )}
             </div>
+            <button type="submit" onClick={submitHandler} className="mb-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Prescription</button>
+
+
             {/* show patient history */}
+            <div className='relative z-0 w-full mb-6 group'>
+                <div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            value=""
+                            className="sr-only peer"
+                            checked={showHistory}
+                            onChange={handleHistory}
+                            placeholder='Show Patient Medical History'
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        <span className="ml-3 text-sm font-serif text-gray-900 dark:text-gray-800">
+                                Show Patient Medical History
+                            </span>
+                    </label>
+                </div>
+                {showHistory && (<PatientMedicalHistory patientDetail={patientDetail} />)}
+            </div>
+
             <div className=" flex flex-col border-2 rounded-lg border-orange-600 items-center justify-center p-4">
                 <div className='flex flex-row items-center space-x-2 px-8'>
                     <p className='py-2 text-sm text-gray-900 font-normal'>Patient's Uploaded Health Records</p>
+                    <button onClick={handleClick}>
+                        <FontAwesomeIcon icon={faArrowsRotate} className={`text-gray-600 ${isRotating ? "animate-spin" : ""}`} />
+                    </button>
+
                 </div>
                 {ptHistory ?
                     (<div>
