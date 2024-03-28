@@ -120,9 +120,10 @@ function Otp(props) {
   const fetchDrDetail = async () => {
     await axios
       .get(
-        `https://localhost:8090/doctor/getDoctorByPhoneNumber/${phoneNumber}`
+        `http://localhost:8090/doctor/getDoctorByPhoneNumber/${phoneNumber}`
       )
       .then((response) => {
+        console.log("ccccccc"+response.data)
         localStorage.setItem("doctorDetails", JSON.stringify(response.data));
       })
       .catch((error) => {
