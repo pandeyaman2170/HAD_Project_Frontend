@@ -5,7 +5,7 @@ import { Icons } from "./Menus";
 
 const HomePageFooter = () => {
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-900 text-white" id="footer">
       <ItemsContainer />
       <div
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10

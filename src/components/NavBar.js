@@ -8,6 +8,15 @@ const NavBar = () => {
   const getStarted = () => {
     navigate("/login");
   };
+  const handleContactClick = () => {
+    document.getElementById("footer").scrollIntoView({ behavior: "smooth" });
+  };
+  const handleAboutClick = () => {
+    document.getElementById("showcase").scrollIntoView({behavior:"smooth"});
+  }
+  const handleHomeClick = () => {
+    document.getElementById("home").scrollIntoView({behavior:"smooth"});
+  }
   return (
     <div>
       <nav className="bg-orange-600 fixed  w-full z-20 top-0 left-0 border-orange-600">
@@ -60,19 +69,13 @@ const NavBar = () => {
             >
               <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
                 <li className="block py-2 pl-3 pr-4 hover:cursor-pointer text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
-                  Home
+                  <button onClick={handleHomeClick} >Home</button>
                 </li>
                 <li className="block py-2 pl-3 pr-4 hover:cursor-pointer text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
-                  About
+                  <button onClick={handleAboutClick} >About</button>
                 </li>
                 <li className="block py-2 pl-3 pr-4 hover:cursor-pointer text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
-                  Timmings
-                </li>
-                <li className="block py-2 pl-3 pr-4 hover:cursor-pointer text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
-                  FAQ
-                </li>
-                <li className="block py-2 pl-3 pr-4 hover:cursor-pointer text-white rounded md:bg-transparent md:text-white-700 md:p-0 md:dark:text-white-500">
-                  Contact
+                  <button onClick={handleContactClick} >Contact</button>
                 </li>
               </ul>
             </div>

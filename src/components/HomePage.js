@@ -55,7 +55,7 @@ const HomePage = () => {
   };
 
   return (
-      <div className="md:flex md:flex-col">
+      <div id="home" className="md:flex md:flex-col">
         <NavBar />
         <br />
         <br></br>
@@ -101,7 +101,7 @@ const HomePage = () => {
               className=""
           />
         </div>
-        <div className="md:flex md:flex-row md:justify-center md:h-full md:justify-between p-8">
+        <div id="showcase" className="md:flex md:flex-row md:justify-center md:h-full md:justify-between p-8">
           {/* First three items */}
           <div className="md:flex md:flex-col md:items-center md:w-1/3">
             <div className="mb-8">
