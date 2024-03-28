@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Import axios library
+import axios from "axios";
+import {useNavigate} from "react-router-dom"; // Import axios library
 
 const ConsultNow = () => {
+  const navigate = useNavigate();
   const [departments, setDepartments] = useState([]);
   const [show, setShow] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [prevConsultation, setprevConsultation] = useState(false);
   const [count, setCount] = useState(0);
-
+  let patientDetails = JSON.parse(localStorage.getItem("patientDetails"));
+  let departmentDetails;
   const toggleModal = () => {
     setShow(!show);
   };
@@ -22,9 +25,18 @@ const ConsultNow = () => {
     // Implement your functionality for OPD
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    // Implement your submitHandler logic
+  const submitHandler = () => {
+    departmentDetails = JSON.parse(localStorage.getItem("departmentDetails"));
+    function getDepartmentIdByName(selectedDepartment) {
+      const matchingDepartment = departmentDetails.find(
+          (department) => department.name === selectedDepartment
+      );
+      return matchingDepartment?.id;
+    }
+    const departmentId = getDepartmentIdByName(selectedDepartment);
+
+    axios.post(`http://localhost:8090/patient/joinQueue/${departmentId}/${patientDetails?.patientId}`);
+    navigate(`/patient/waitingroom`);
   };
 
   const deleteprevConsultation = () => {
@@ -39,6 +51,7 @@ const ConsultNow = () => {
     // Fetch departments from the API
     axios.get("http://localhost:8090/get_all_departments_from_all_hospitals")
         .then(response => {
+          localStorage.setItem("departmentDetails", JSON.stringify(response.data));
           setDepartments(response.data); // Assuming the response is an array of departments
         })
         .catch(error => {
