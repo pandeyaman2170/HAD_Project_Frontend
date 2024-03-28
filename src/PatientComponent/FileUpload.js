@@ -242,7 +242,7 @@ import axios from "axios";
 
 const FileUpload = () => {
   const patient = JSON.parse(localStorage.getItem("patientDetails"));
-  const patientId = patient.patientId;
+  const patientId = 3;
   const [isRotating, setIsRotating] = useState(false);
   // const [selectedFile, setSelectedFile] = useState(null)
   const [filePresent, setFilePresent] = useState(false);
