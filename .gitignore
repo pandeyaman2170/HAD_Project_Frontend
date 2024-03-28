@@ -42,5 +42,5 @@ yarn.lock
 
 # npm build directories
 /node_modules/
-/public/
+# /public/
 /npm-debug.log

@@ -14,6 +14,8 @@ import PatientUpdateProfile from './PatientComponent/PatientUpdateProfile';
 import PatientVideoCallPage from './PatientComponent/PatientVideoCallPage';
 import AdminDashboard from './AdminComponents/AdminDashboard';
 import AddDoctor from './AdminComponents/AddDoctor';
+import GlobalAdminLogin from "./GlobalAdminComponents/GlobalAdminLogin";
+import GlobalAdminDashboard from "./GlobalAdminComponents/GlobalAdminDashboard";
 const App = () => {
   return (
     <div>
@@ -32,6 +34,8 @@ const App = () => {
           <Route path='/patient/patientVideoCall' element={<PatientVideoCallPage />} />
           <Route path='/admin' element={<AdminDashboard />} />
           <Route path='/admin/addDoctor' element={<AddDoctor/>} />
+          <Route path='/global_admin/login' element={<GlobalAdminLogin/>} />
+          <Route path='/global_admin/dashboard' element={<GlobalAdminDashboard/>} />
         </Routes>
       </BrowserRouter>
       </Suspense>
