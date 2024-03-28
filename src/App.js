@@ -16,6 +16,7 @@ import AdminDashboard from './AdminComponents/AdminDashboard';
 import AddDoctor from './AdminComponents/AddDoctor';
 import GlobalAdminLogin from "./GlobalAdminComponents/GlobalAdminLogin";
 import GlobalAdminDashboard from "./GlobalAdminComponents/GlobalAdminDashboard";
+import AddHospita from './GlobalAdminComponents/AddHospital';
 const App = () => {
   return (
     <div>
@@ -36,6 +37,7 @@ const App = () => {
           <Route path='/admin/addDoctor' element={<AddDoctor/>} />
           <Route path='/global_admin/login' element={<GlobalAdminLogin/>} />
           <Route path='/global_admin/dashboard' element={<GlobalAdminDashboard/>} />
+          <Route path='/global_admin/addHospital' element={<AddHospita/>} />
         </Routes>
       </BrowserRouter>
       </Suspense>
